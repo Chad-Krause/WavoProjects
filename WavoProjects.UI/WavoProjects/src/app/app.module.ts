@@ -8,18 +8,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { BoardComponent } from './components/board/board.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProjectItemComponent } from './components/project-item/project-item.component';
+import { BoardTesComponent } from './components/board-tes/board-tes.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    TitleBarComponent
+    TitleBarComponent,
+    BoardComponent,
+    ProjectItemComponent,
+    BoardTesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
