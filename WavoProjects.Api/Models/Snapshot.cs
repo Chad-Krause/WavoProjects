@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WavoProjects.DataAccess
+namespace WavoProjects.Api.Models
 {
-    public class Priority
+    public class Snapshot
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public virtual List<Project> Projects { get; set; }
-
+        public DateTimeOffset SnapshotTakenOn { get; set; }
     }
 }

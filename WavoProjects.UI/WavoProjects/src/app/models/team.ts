@@ -1,4 +1,4 @@
-export class Category {
+export class Team {
     id: number;
     name: string;
     color: string;

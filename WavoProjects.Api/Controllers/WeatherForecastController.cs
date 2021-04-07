@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WavoProjects.Api.Models;
 
 namespace WavoProjects.Api.Controllers
 {
@@ -17,23 +19,18 @@ namespace WavoProjects.Api.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private WavoContext m_db;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, WavoContext context)
         {
             _logger = logger;
+            m_db = context;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<List<Team>> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await m_db.Teams.ToListAsync();
         }
     }
 }

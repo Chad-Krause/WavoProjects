@@ -1,11 +1,11 @@
-import { Category } from "./category";
+import { Team } from "./team";
 import { PriorityLevel } from "./priority-level";
 
 export class Project {
     id: number;
     name: string;
     priorityLevel?: PriorityLevel;
-    category: Category;
+    team: Team;
 }
 
 export const ExampleProjects: Project[] = [
@@ -16,7 +16,7 @@ export const ExampleProjects: Project[] = [
             id: 1,
             name: "High"
         },
-        category: {
+        team: {
             id: 1,
             name: "Design/CAD",
             color: "#4700d8"
@@ -29,7 +29,7 @@ export const ExampleProjects: Project[] = [
             id: 2,
             name: "Medium"
         },
-        category: {
+        team: {
             id: 2,
             name: "Business",
             color: "#ef0000"
@@ -42,7 +42,7 @@ export const ExampleProjects: Project[] = [
             id: 3,
             name: "Low"
         },
-        category: {
+        team: {
             id: 3,
             name: "Media",
             color: "#00ff2d"

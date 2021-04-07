@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WavoProjects.DataAccess.Extensions
+namespace WavoProjects.Api.Models.Extensions
 {
     public static class Extensions
     {

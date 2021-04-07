@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WavoProjects.DataAccess
+namespace WavoProjects.Api.Models
 {
     public class Project
     {
