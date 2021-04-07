@@ -1,0 +1,7 @@
+/.vs
+/WavoProjects.Api/obj
+/WavoProjects.Api/bin
+/WavoProjects.DataAccess/bin
+/WavoProjects.Database/obj
+/WavoProjects.Database/bin
+/WavoProjects.DataAccess/obj
