@@ -1,21 +1,34 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Priority } from 'src/app/models/priority';
 import { ExampleProjects, Project } from 'src/app/models/project';
+import { RealTimeService } from 'src/app/services/real-time.service';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit {
-  projects1: Project[] = ExampleProjects;
-  projects2: Project[] = ExampleProjects;
-  projects3: Project[] = ExampleProjects;
-  projects4: Project[] = ExampleProjects;
+export class BoardComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+  priorities: Priority[] = [];
 
-  constructor() { }
+  constructor(private rts: RealTimeService) { 
+    let sub = rts.projectBoardUpdates.subscribe((newData: Priority[]) => {
+      this.priorities = newData;
+    });
+
+    this.subscriptions.push(sub);
+  }
 
   ngOnInit(): void {
+    this.rts.subscribeToProjectBoardUpdates();
+  }
+  
+  ngOnDestroy(): void {
+    this.rts.unsubscribeToProjectBoardUpdates();
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
 

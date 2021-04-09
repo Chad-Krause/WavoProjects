@@ -13,6 +13,7 @@ import { BoardComponent } from './components/board/board.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProjectItemComponent } from './components/project-item/project-item.component';
 import { BoardTesComponent } from './components/board-tes/board-tes.component'
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { BoardTesComponent } from './components/board-tes/board-tes.component'
     MatIconModule,
     MatToolbarModule,
     MatButtonModule,
-    DragDropModule
+    DragDropModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

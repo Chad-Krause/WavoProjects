@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WavoProjects.Api.Hubs;
 using WavoProjects.Api.Models;
 
 namespace WavoProjects.Api
@@ -38,6 +39,7 @@ namespace WavoProjects.Api
                     throw new NotImplementedException("Production database not set up!");
                 }
             });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +52,13 @@ namespace WavoProjects.Api
 
             app.UseHttpsRedirection();
 
+            app.UseCors(options =>
+            {
+                options.WithOrigins("https://localhost:4200");
+                options.AllowAnyMethod();
+                options.AllowAnyHeader();
+            });
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -57,6 +66,7 @@ namespace WavoProjects.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ProjectHub>("/ProjectHub");
             });
         }
     }

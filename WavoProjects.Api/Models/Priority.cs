@@ -23,7 +23,8 @@ namespace WavoProjects.Api.Models
                 new Priority { Id = 1, Name = "Unassigned" },
                 new Priority { Id = 2, Name = "High" },
                 new Priority { Id = 3, Name = "Medium" },
-                new Priority { Id = 4, Name = "Low" }
+                new Priority { Id = 4, Name = "Low" },
+                new Priority { Id = 5, Name = "Completed" }
             );
         }
     }
