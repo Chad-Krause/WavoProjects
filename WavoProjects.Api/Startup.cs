@@ -27,7 +27,7 @@ namespace WavoProjects.Api
             services.AddControllers();
             services.AddDbContext<WavoContext>(options =>
             {
-                if(CurrentEnv.IsDevelopment())
+                if (CurrentEnv.IsDevelopment())
                 {
                     options.EnableSensitiveDataLogging();
                     options.EnableDetailedErrors();
@@ -40,6 +40,17 @@ namespace WavoProjects.Api
                 }
             });
             services.AddSignalR();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "dev", builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200");
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.AllowCredentials();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,12 +63,7 @@ namespace WavoProjects.Api
 
             app.UseHttpsRedirection();
 
-            app.UseCors(options =>
-            {
-                options.WithOrigins("https://localhost:4200");
-                options.AllowAnyMethod();
-                options.AllowAnyHeader();
-            });
+            app.UseCors("dev");
 
             app.UseRouting();
 

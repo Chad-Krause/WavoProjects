@@ -10,6 +10,7 @@ export class RealTimeService {
   private connection: signalR.HubConnection;
   private state: RealTimeSignalRState = new RealTimeSignalRState();
   public isCurrentlyConnected: boolean;
+  public isConnected: EventEmitter<boolean> = new EventEmitter<boolean>();
   public projectBoardUpdates: EventEmitter<Priority[]> = new EventEmitter<Priority[]>();
 
   constructor() { 
@@ -18,21 +19,25 @@ export class RealTimeService {
                                   .withAutomaticReconnect()
                                   .build();
 
-    this.connection.onreconnecting(() => this.isCurrentlyConnected = false);
-    this.connection.onclose(() => this.isCurrentlyConnected = false);
-    this.connection.onreconnected(() => {
-      this.isCurrentlyConnected = true;
+    this.connection.onreconnecting(() => this.isConnected.emit(false));
+    this.connection.onclose(() => this.isConnected.emit(false));
+    this.connection.onreconnected(() => this.isConnected.emit(true));
 
-      if(this.state.isListeningToProjectBoardUpdates) {
+    this.isConnected.subscribe(connected => {
+      this.isCurrentlyConnected = connected;
 
+      if(connected) {
+        if(this.state.isListeningToProjectBoardUpdates) {
+          this.subscribeToProjectBoardUpdates();
+        }
       }
-    });
+    })
 
     this.connection.on("UpdateProjectBoard", (data: Priority[]) => {
       this.projectBoardUpdates.emit(data);
     });
 
-    this.connection.start();
+    this.connection.start().then(() => this.isConnected.emit(true));
   }
 
   public subscribeToProjectBoardUpdates() {

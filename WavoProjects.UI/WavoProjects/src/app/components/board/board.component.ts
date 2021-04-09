@@ -16,6 +16,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   constructor(private rts: RealTimeService) { 
     let sub = rts.projectBoardUpdates.subscribe((newData: Priority[]) => {
+      console.log(newData)
       this.priorities = newData;
     });
 

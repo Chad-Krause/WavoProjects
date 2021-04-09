@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using WavoProjects.Api.Models.QueryModels;
 
 namespace WavoProjects.Api.Models
 {
@@ -14,6 +15,8 @@ namespace WavoProjects.Api.Models
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Snapshot> Snapshots { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+
+        internal virtual DbSet<PriorityView> _PriorityView { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
