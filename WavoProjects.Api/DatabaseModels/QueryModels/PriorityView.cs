@@ -16,7 +16,7 @@ namespace WavoProjects.Api.Models.QueryModels
         {
             Id = p.Id;
             Name = p.Name;
-            Projects = p.Projects.Select(i => new PriorityProject(i)).ToList();
+            Projects = p.Projects.Select(i => new PriorityProject(i)).OrderBy(i => i.SortOrder).ToList();
             
         }
         public int Id { get; set; }
@@ -38,6 +38,7 @@ namespace WavoProjects.Api.Models.QueryModels
             Description = p.Description;
             TeamId = p.TeamId;
             PriorityId = p.PriorityId;
+            SortOrder = p.SortOrder;
             StartedOn = p.StartedOn;
             CreatedOn = p.CreatedOn;
             UpdatedOn = p.UpdatedOn;
@@ -53,6 +54,7 @@ namespace WavoProjects.Api.Models.QueryModels
         public string Description { get; set; }
         public int? TeamId { get; set; }
         public int? PriorityId { get; set; }
+        public int? SortOrder { get; set; }
         public DateTimeOffset? StartedOn { get; set; }
         public DateTimeOffset CreatedOn { get; set; }
         public DateTimeOffset? UpdatedOn { get; set; }

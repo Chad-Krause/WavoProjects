@@ -25,7 +25,8 @@ namespace WavoProjects.Api.Models
                 new Team { Id = 2, Name = "Business", Color = "#00ff2d" },
                 new Team { Id = 3, Name = "CAD/Design", Color = "#4700d8" },
                 new Team { Id = 4, Name = "Programming", Color = "#ffab00" },
-                new Team { Id = 5, Name = "Media", Color = "#0dcaf0" }
+                new Team { Id = 5, Name = "Media", Color = "#0dcaf0" },
+                new Team { Id = 6, Name = "Build", Color = "#039aff" }
             );
         }
     }

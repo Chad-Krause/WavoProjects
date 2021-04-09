@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WavoProjects.Api.Models;
-using WavoProjects.Api.Models.Extensions;
 
 namespace WavoProjects.Api.Hubs
 {
@@ -24,12 +23,14 @@ namespace WavoProjects.Api.Hubs
 
         public async Task SubscribeToProjectPage()
         {
+            m_logger.LogInformation($"Adding client {Context.ConnectionId} to project board group");
             await Groups.AddToGroupAsync(Context.ConnectionId, kProjectPageGroup);
             await Clients.Caller.UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
         }
 
         public async Task UnsubscribeToProjectPage()
         {
+            m_logger.LogInformation($"Removing client {Context.ConnectionId} from project board group");
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, kProjectPageGroup);
         }
     }

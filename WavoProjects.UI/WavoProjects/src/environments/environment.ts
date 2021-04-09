@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseUrl: "https://localhost:44331/",
   hubUrl: "https://localhost:44331/ProjectHub"
 };
 

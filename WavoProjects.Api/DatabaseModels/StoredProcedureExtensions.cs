@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WavoProjects.Api.Models.QueryModels;
 
-namespace WavoProjects.Api.Models.Extensions
+namespace WavoProjects.Api.Models
 {
     public static class StoredProcedureExtensions
     {

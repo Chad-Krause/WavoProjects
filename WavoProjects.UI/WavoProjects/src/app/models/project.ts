@@ -9,6 +9,7 @@ export class Project {
     team: Team;
     priorityId?: number;
     priority?: Priority;
+    sortOrder?: number;
     startedOn?: Date;
     createdOn: Date;
     updatedOn: Date;
@@ -29,6 +30,7 @@ export const ExampleProjects: Project[] = [
             name: "Design/CAD",
             color: "#4700d8"
         },
+        sortOrder: 1,
         createdOn: new Date(),
         updatedOn: new Date(),
     },
@@ -46,6 +48,7 @@ export const ExampleProjects: Project[] = [
             name: "Business",
             color: "#ef0000"
         },
+        sortOrder: 2,
         createdOn: new Date(),
         updatedOn: new Date(),
     },
@@ -63,6 +66,7 @@ export const ExampleProjects: Project[] = [
             name: "Media",
             color: "#00ff2d"
         },
+        sortOrder: 3,
         createdOn: new Date(),
         updatedOn: new Date(),
     }

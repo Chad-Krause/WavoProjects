@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WavoProjects.Api.Models;
 
 namespace WavoProjects.Api.Migrations
 {
     [DbContext(typeof(WavoContext))]
-    partial class WavoContextModelSnapshot : ModelSnapshot
+    [Migration("20210409163726_AddSortOrderToProjects")]
+    partial class AddSortOrderToProjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
