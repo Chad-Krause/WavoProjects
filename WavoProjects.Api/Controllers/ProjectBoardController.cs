@@ -38,6 +38,7 @@ namespace WavoProjects.Api.Controllers
         {
             Project dbProject = await m_db.Projects.SingleAsync(i => i.Id == model.Id);
             dbProject.PriorityId = model.NewPriorityId;
+            dbProject.SortOrder = model.SortOrders.Single(i => dbProject.Id == i.ProjectId).SortOrder;
 
             List<Project> projects = await m_db.Projects.Where(i => i.PriorityId == model.NewPriorityId).ToListAsync();
             foreach(Project p in projects)

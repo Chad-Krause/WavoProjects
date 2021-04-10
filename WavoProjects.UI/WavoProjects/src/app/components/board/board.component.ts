@@ -1,11 +1,13 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Observable, pipe, Subject, Subscription } from 'rxjs';
 import { Priority } from 'src/app/models/priority';
-import { ExampleProjects, Project } from 'src/app/models/project';
 import { ProjectSortOrder } from 'src/app/models/project-sort-order';
 import { ApiService } from 'src/app/services/api.service';
 import { RealTimeService } from 'src/app/services/real-time.service';
+import { throttleTime } from 'rxjs/operators';
+import { ExampleProjects, Project } from 'src/app/models/project';
+import { ProjectDrag } from 'src/app/models/project-drag';
 
 @Component({
   selector: 'app-board',
@@ -15,18 +17,46 @@ import { RealTimeService } from 'src/app/services/real-time.service';
 export class BoardComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   priorities: Priority[] = [];
+  onlyProjects: Project[] = [];
+  dragSubject: Subject<CdkDragMove> = new Subject<CdkDragMove>();
+  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(100));
+  remoteProjectDrags = {};
+  exampleProject: Project = ExampleProjects[0];
+  screenWidth: number;
+  screenHeight: number;
+
+  @HostListener('window:resize', ['$event'])
+onResize(event?) {
+   this.screenHeight = window.innerHeight;
+   this.screenWidth = window.innerWidth;
+}
 
   constructor(private rts: RealTimeService, private api: ApiService) { 
-    let sub = rts.projectBoardUpdates.subscribe((newData: Priority[]) => {
-      console.log(newData)
+    let sub1 = rts.projectBoardUpdates.subscribe((newData: Priority[]) => {
       this.priorities = newData;
+      // 1D array of projects
+      this.onlyProjects = [].concat(...this.priorities.map(i => i.projects));
     });
+    this.subscriptions.push(sub1);
 
-    this.subscriptions.push(sub);
+
+    let sub2 = this.dragThrottled.subscribe(res => {
+      this.rts.dragProject(res.pointerPosition.x, res.pointerPosition.y, res.source.data.id);
+    });
+    this.subscriptions.push(sub2);
+
+
+    let sub3 = this.rts.projectDrags.subscribe(drag => {
+      this.otherUserDragged(drag);
+    });
+    this.subscriptions.push(sub3);
+
+    this.onResize();
   }
 
   ngOnInit(): void {
     this.rts.subscribeToProjectBoardUpdates();
+    this.rts.subscribeToProjectDrags();
   }
   
   ngOnDestroy(): void {
@@ -51,10 +81,26 @@ export class BoardComponent implements OnInit, OnDestroy {
     let project = event.container.data[event.currentIndex];
     // Update Backend
     let newProjectsOrder: ProjectSortOrder[] = event.container.data.map((project, index) => new ProjectSortOrder(project.id, index));
-    
-    this.api.updateProjectPriorityAndSortOrders(project.id, priorityId, newProjectsOrder).subscribe(res => {
-      console.log(res);
-    });
+
+    this.api.updateProjectPriorityAndSortOrders(project.id, priorityId, newProjectsOrder).subscribe();
     
   }
+
+  onDragMoved(e: CdkDragMove) {
+    e.pointerPosition.x = (e.pointerPosition.x * 100)/this.screenWidth - 12.5;
+    e.pointerPosition.y = (e.pointerPosition.y * 100)/this.screenHeight - 12.5;
+    this.dragSubject.next(e);
+  }
+
+  onDragEnd(e: any) {
+    this.rts.dragProject(-1, -1, e.source.data.id);
+  }
+
+  otherUserDragged(drag: ProjectDrag) {
+    drag.project = this.onlyProjects.find(i => i.id == drag.projectId);
+    drag.style = {"top": drag.y+ "%", "left": drag.x + "%", "display": drag.x > -100 || drag.y + 50 > this.screenHeight ? "block" : "none"}
+    this.remoteProjectDrags[drag.clientId] = drag;
+  }
+
+
 }

@@ -9,5 +9,6 @@ namespace WavoProjects.Api.Models
     public interface IWavOpsClient
     {
         public Task UpdateProjectBoard(List<PriorityView> projects);
+        public Task ProjectDrag(ProjectDrag drag);
     }
 }

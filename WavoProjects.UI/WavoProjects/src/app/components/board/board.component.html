@@ -5,7 +5,15 @@
             cdkDropList class="project-list" 
             (cdkDropListDropped)="drop($event)" 
             [cdkDropListData]="priority.projects">
-            <project-item *ngFor="let project of priority.projects" cdkDrag [project]='project'></project-item>
+            <project-item cdkDrag *ngFor="let project of priority.projects" 
+                [project]='project' 
+                (cdkDragMoved)="onDragMoved($event)" 
+                (cdkDragReleased)="onDragEnd($event)"
+                [cdkDragData]="project">
+            </project-item>
         </div>
     </div>
 </div>
+
+<!-- Remote Projects -->
+<project-item *ngFor='let item of remoteProjectDrags | keyvalue' [project]='item.value.project' class='remote' [ngStyle]="item.value.style"></project-item>

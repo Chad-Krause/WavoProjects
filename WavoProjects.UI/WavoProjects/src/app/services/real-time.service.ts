@@ -2,6 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import * as signalR from "@microsoft/signalr";
 import { environment } from 'src/environments/environment';
 import { Priority } from '../models/priority';
+import { ProjectDrag } from '../models/project-drag';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class RealTimeService {
   public isCurrentlyConnected: boolean;
   public isConnected: EventEmitter<boolean> = new EventEmitter<boolean>();
   public projectBoardUpdates: EventEmitter<Priority[]> = new EventEmitter<Priority[]>();
+  public projectDrags: EventEmitter<ProjectDrag> = new EventEmitter<ProjectDrag>();
 
   constructor() { 
     this.connection = new signalR.HubConnectionBuilder()
@@ -30,6 +32,10 @@ export class RealTimeService {
         if(this.state.isListeningToProjectBoardUpdates) {
           this.subscribeToProjectBoardUpdates();
         }
+
+        if(this.state.isListeningToProjectDrags) {
+          this.subscribeToProjectDrags();
+        }
       }
     })
 
@@ -37,9 +43,28 @@ export class RealTimeService {
       this.projectBoardUpdates.emit(data);
     });
 
-    this.connection.start().then(() => this.isConnected.emit(true));
+    this.connection.on("ProjectDrag", (data: ProjectDrag) => {
+      this.projectDrags.emit(data);
+    });
+
+    this.startConnection()
+
+    setInterval(() => {
+      if(!this.isCurrentlyConnected){
+        this.startConnection();
+      }
+    }, 15000)
   }
 
+  public startConnection() {
+    this.connection.start()
+    .then(i => this.isConnected.emit(true))
+    .catch(i => {
+      this.isConnected.emit(false)
+    });
+  }
+
+  //#region Project Board Updates
   public subscribeToProjectBoardUpdates() {
     this.state.isListeningToProjectBoardUpdates = true;
 
@@ -55,6 +80,29 @@ export class RealTimeService {
       this.connection.send("UnsubscribeToProjectPage");
     }
   }
+  //#endregion
+
+  //#region Drag Updates
+  public subscribeToProjectDrags() {
+    this.state.isListeningToProjectDrags = true;
+
+    if(this.isCurrentlyConnected) {
+      this.connection.send("SubscribeToProjectDrags");
+    }
+  }
+
+  public unsubscribeToProjectDrags() {
+    this.state.isListeningToProjectDrags = false;
+
+    if(this.isCurrentlyConnected) {
+      this.connection.send("UnsubscribeToProjectDrags");
+    }
+  }
+
+  public dragProject(x: number, y: number, projectId: number) {
+    this.connection.send("DragProject", {x, y, projectId});
+  }
+  //#endregion
 }
 
 /**
@@ -81,8 +129,10 @@ export class RealTimeService {
 class RealTimeSignalRState {
   constructor() {
     this.isListeningToProjectBoardUpdates = false;
+    this.isListeningToProjectDrags = false;
   }
 
   isListeningToProjectBoardUpdates: boolean;
+  isListeningToProjectDrags: boolean;
 }
 
