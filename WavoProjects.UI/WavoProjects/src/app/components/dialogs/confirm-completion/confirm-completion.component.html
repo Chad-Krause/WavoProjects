@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirm Completion</h1>
+<div mat-dialog-content>
+    Confirm Completion of {{data.projectName}}?
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Nevermind</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Complete!</button>
+</div>

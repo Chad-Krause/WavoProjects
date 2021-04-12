@@ -40,17 +40,49 @@ namespace WavoProjects.Api.Controllers
             dbProject.PriorityId = model.NewPriorityId;
             dbProject.SortOrder = model.SortOrders.Single(i => dbProject.Id == i.ProjectId).SortOrder;
 
-            List<Project> projects = await m_db.Projects.Where(i => i.PriorityId == model.NewPriorityId).ToListAsync();
-            foreach(Project p in projects)
+            if(dbProject.StartedOn == null)
             {
-                p.SortOrder = model.SortOrders.Single(i => i.ProjectId == p.Id).SortOrder;
+                dbProject.StartedOn = DateTimeOffset.Now;
             }
+
+            if(model.NewPriorityId != 5)
+            {
+                List<Project> projects = await m_db.Projects.Where(i => i.PriorityId == model.NewPriorityId).ToListAsync();
+                foreach(Project p in projects)
+                {
+                    p.SortOrder = model.SortOrders.Single(i => i.ProjectId == p.Id).SortOrder;
+                }
+            }
+            
 
             await m_db.SaveChangesAsync();
 
-            await m_projectHub.Clients.Groups(ProjectHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
-
+            await SendProjectUpdate();
+            
             return true;
+        }
+
+        [HttpPost("CreateProject")]
+        public async Task CreateProject([FromBody] Project project)
+        {
+            m_db.Projects.Add(new Project
+            {
+                Name = project.Name,
+                Description = project.Description,
+                TeamId = project.TeamId,
+                PriorityId = 1,
+                SortOrder = 999999,
+                CreatedOn = DateTimeOffset.Now,
+                UpdatedOn = DateTimeOffset.Now
+            });
+
+            await m_db.SaveChangesAsync();
+            await SendProjectUpdate();
+        }
+
+        private async Task SendProjectUpdate()
+        {
+            await m_projectHub.Clients.Groups(ProjectHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
         }
     }
 }

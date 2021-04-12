@@ -14,11 +14,14 @@ namespace WavoProjects.Api.Models
          */
         public static async Task<List<PriorityView>> GetProjectsByPriorityAsync(this WavoContext context)
         {
-            return await context.Priorities.Include(i => i.Projects)
-                                                .ThenInclude(j => j.Team)
-                                            .Where(i => i.Id != 5)
-                                            .Select(i => new PriorityView(i))
-                                            .ToListAsync();
+            var priorities = await context.Priorities.Include(i => i.Projects.Where(i => i.PriorityId != 5))
+                                                        .ThenInclude(j => j.Team)
+                                                    .Select(i => new PriorityView(i))
+                                                    .ToListAsync();
+
+            priorities.Single(i => i.Id == 5).Projects.Clear(); // remove elements from last list
+
+            return priorities;
         }
     }
 }

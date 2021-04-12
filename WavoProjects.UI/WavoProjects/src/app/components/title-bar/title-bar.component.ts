@@ -11,5 +11,9 @@ export class TitleBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  addProject() {
+    
+  }
 
 }

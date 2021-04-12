@@ -8,6 +8,9 @@ import { RealTimeService } from 'src/app/services/real-time.service';
 import { throttleTime } from 'rxjs/operators';
 import { ExampleProjects, Project } from 'src/app/models/project';
 import { ProjectDrag } from 'src/app/models/project-drag';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCompletionComponent } from '../dialogs/confirm-completion/confirm-completion.component';
+import { AddProjectComponent } from '../dialogs/add-project/add-project.component';
 
 @Component({
   selector: 'app-board',
@@ -19,7 +22,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   priorities: Priority[] = [];
   onlyProjects: Project[] = [];
   dragSubject: Subject<CdkDragMove> = new Subject<CdkDragMove>();
-  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(100));
+  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(33));
   remoteProjectDrags = {};
   exampleProject: Project = ExampleProjects[0];
   screenWidth: number;
@@ -31,7 +34,7 @@ onResize(event?) {
    this.screenWidth = window.innerWidth;
 }
 
-  constructor(private rts: RealTimeService, private api: ApiService) { 
+  constructor(private rts: RealTimeService, private api: ApiService, public dialog: MatDialog) { 
     let sub1 = rts.projectBoardUpdates.subscribe((newData: Priority[]) => {
       this.priorities = newData;
       // 1D array of projects
@@ -66,6 +69,27 @@ onResize(event?) {
 
 
   drop(event: CdkDragDrop<Project[]>) {
+    let containerId: number = (+event.container.id.substr(14)) % this.priorities.length;
+    let priorityId = this.priorities[containerId].id;
+    let project = event.item.data;
+
+    if(priorityId == 5) {
+      const dialogRef = this.dialog.open(ConfirmCompletionComponent, {
+        width: '500px',
+        data: { projectName: project.name }
+      });
+  
+      dialogRef.afterClosed().subscribe(confirm => {
+        if(confirm) {
+          this.moveItems(event, priorityId, project);
+        }
+      });
+    } else {
+      this.moveItems(event, priorityId, project);
+    }
+  }
+
+  moveItems(event: CdkDragDrop<Project[]>, priorityId: number, project: Project) {
     // update UI
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -75,16 +99,12 @@ onResize(event?) {
         event.previousIndex,
         event.currentIndex);
     }
-
-    let containerId: number = (+event.container.id.substr(14)) % this.priorities.length;
-    let priorityId = this.priorities[containerId].id;
-    let project = event.container.data[event.currentIndex];
     // Update Backend
     let newProjectsOrder: ProjectSortOrder[] = event.container.data.map((project, index) => new ProjectSortOrder(project.id, index));
 
     this.api.updateProjectPriorityAndSortOrders(project.id, priorityId, newProjectsOrder).subscribe();
-    
   }
+
 
   onDragMoved(e: CdkDragMove) {
     e.pointerPosition.x = (e.pointerPosition.x * 100)/this.screenWidth - 12.5;
@@ -93,13 +113,22 @@ onResize(event?) {
   }
 
   onDragEnd(e: any) {
-    this.rts.dragProject(-1, -1, e.source.data.id);
+    this.rts.dragProject(-100, -100, e.source.data.id);
   }
 
   otherUserDragged(drag: ProjectDrag) {
     drag.project = this.onlyProjects.find(i => i.id == drag.projectId);
     drag.style = {"top": drag.y+ "%", "left": drag.x + "%", "display": drag.x > -100 || drag.y + 50 > this.screenHeight ? "block" : "none"}
     this.remoteProjectDrags[drag.clientId] = drag;
+  }
+
+  newProject() {
+    const dialogRef = this.dialog.open(AddProjectComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(project => {
+    });
   }
 
 

@@ -28,7 +28,8 @@ export const ExampleProjects: Project[] = [
         team: {
             id: 1,
             name: "Design/CAD",
-            color: "#4700d8"
+            color: "#4700d8",
+            backgroundColor: "#4700d816"
         },
         sortOrder: 1,
         createdOn: new Date(),
@@ -46,7 +47,8 @@ export const ExampleProjects: Project[] = [
         team: {
             id: 2,
             name: "Business",
-            color: "#ef0000"
+            color: "#ef0000",
+            backgroundColor: "#ef000016"
         },
         sortOrder: 2,
         createdOn: new Date(),
@@ -64,7 +66,8 @@ export const ExampleProjects: Project[] = [
         team: {
             id: 3,
             name: "Media",
-            color: "#00ff2d"
+            color: "#00ff2d",
+            backgroundColor: "#00ff2d"
         },
         sortOrder: 3,
         createdOn: new Date(),

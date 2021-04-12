@@ -10,8 +10,8 @@ using WavoProjects.Api.Models;
 namespace WavoProjects.Api.Migrations
 {
     [DbContext(typeof(WavoContext))]
-    [Migration("20210409163726_AddSortOrderToProjects")]
-    partial class AddSortOrderToProjects
+    [Migration("20210410011748_InitialSchema")]
+    partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,68 +106,68 @@ namespace WavoProjects.Api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(6285), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(7441), new TimeSpan(0, -4, 0, 0, 0)),
                             Description = "T-Shirt Cannon Robot",
                             Name = "T-Shirt Cannon Robot",
                             PriorityId = 1,
                             SortOrder = 1,
                             TeamId = 3,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(6932), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(7977), new TimeSpan(0, -4, 0, 0, 0))
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7405), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8363), new TimeSpan(0, -4, 0, 0, 0)),
                             Description = "Sponsor Thank Yous",
                             Name = "Sponsor Thank Yous",
                             PriorityId = 1,
                             SortOrder = 2,
                             TeamId = 1,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7417), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8373), new TimeSpan(0, -4, 0, 0, 0))
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7422), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8378), new TimeSpan(0, -4, 0, 0, 0)),
                             Description = "Chairman's Presentation",
                             Name = "Chairman's Presentation",
                             PriorityId = 1,
                             SortOrder = 3,
                             TeamId = 2,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7424), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8380), new TimeSpan(0, -4, 0, 0, 0))
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7428), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8384), new TimeSpan(0, -4, 0, 0, 0)),
                             Description = "Organize Electrical Toolbox",
                             Name = "Organize Electrical Toolbox",
                             PriorityId = 1,
                             SortOrder = 4,
                             TeamId = 4,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7430), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8387), new TimeSpan(0, -4, 0, 0, 0))
                         },
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7433), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8391), new TimeSpan(0, -4, 0, 0, 0)),
                             Description = "Make New Router Vacuum Table",
                             Name = "Make New Router Vacuum Table",
                             PriorityId = 1,
                             SortOrder = 5,
                             TeamId = 6,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7436), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8393), new TimeSpan(0, -4, 0, 0, 0))
                         },
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7439), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8397), new TimeSpan(0, -4, 0, 0, 0)),
                             Description = "Develop Path Planning",
                             Name = "Develop Path Planning",
                             PriorityId = 1,
                             SortOrder = 6,
                             TeamId = 4,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 12, 37, 25, 823, DateTimeKind.Unspecified).AddTicks(7441), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8400), new TimeSpan(0, -4, 0, 0, 0))
                         });
                 });
 
@@ -191,6 +191,9 @@ namespace WavoProjects.Api.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("PriorityViewId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SortOrder")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("StartedOn")

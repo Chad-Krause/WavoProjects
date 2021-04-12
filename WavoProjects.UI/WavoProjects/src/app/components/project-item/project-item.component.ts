@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project';
+import { Team } from 'src/app/models/team';
 
 @Component({
   selector: 'project-item',
@@ -12,11 +13,11 @@ export class ProjectItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.project.team = new Team(this.project.team);
   }
 
   getColor() {
-    let backgroundColor = this.project.team.color + "16"
-    return {'border-color': this.project.team.color, 'background-color': backgroundColor};
+    return {'border-color': this.project.team.color, 'background-color': this.project.team.backgroundColor};
   }
 
 }
