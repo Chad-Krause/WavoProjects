@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WavoProjects.Api.Models;
 
@@ -15,23 +14,22 @@ namespace WavoProjects.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.5")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
+                .HasAnnotation("ProductVersion", "5.0.5");
 
             modelBuilder.Entity("WavoProjects.Api.Models.Priority", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Priorities");
+                    b.ToTable("Priority");
 
                     b.HasData(
                         new
@@ -65,17 +63,18 @@ namespace WavoProjects.Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("varchar(2000)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<int?>("PriorityId")
                         .HasColumnType("int");
@@ -83,14 +82,14 @@ namespace WavoProjects.Api.Migrations
                     b.Property<int?>("SortOrder")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("StartedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime?>("StartedOn")
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("UpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -98,74 +97,74 @@ namespace WavoProjects.Api.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Project");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(7441), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 865, DateTimeKind.Local).AddTicks(9543),
                             Description = "T-Shirt Cannon Robot",
                             Name = "T-Shirt Cannon Robot",
                             PriorityId = 1,
                             SortOrder = 1,
                             TeamId = 3,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(7977), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 865, DateTimeKind.Local).AddTicks(9977)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8363), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(928),
                             Description = "Sponsor Thank Yous",
                             Name = "Sponsor Thank Yous",
                             PriorityId = 1,
                             SortOrder = 2,
                             TeamId = 1,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8373), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(939)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8378), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(942),
                             Description = "Chairman's Presentation",
                             Name = "Chairman's Presentation",
                             PriorityId = 1,
                             SortOrder = 3,
                             TeamId = 2,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8380), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(945)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8384), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1008),
                             Description = "Organize Electrical Toolbox",
                             Name = "Organize Electrical Toolbox",
                             PriorityId = 1,
                             SortOrder = 4,
                             TeamId = 4,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8387), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1011)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8391), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1014),
                             Description = "Make New Router Vacuum Table",
                             Name = "Make New Router Vacuum Table",
                             PriorityId = 1,
                             SortOrder = 5,
                             TeamId = 6,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8393), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1016)
                         },
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8397), new TimeSpan(0, -4, 0, 0, 0)),
+                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1019),
                             Description = "Develop Path Planning",
                             Name = "Develop Path Planning",
                             PriorityId = 1,
                             SortOrder = 6,
                             TeamId = 4,
-                            UpdatedOn = new DateTimeOffset(new DateTime(2021, 4, 9, 21, 17, 48, 540, DateTimeKind.Unspecified).AddTicks(8400), new TimeSpan(0, -4, 0, 0, 0))
+                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1021)
                         });
                 });
 
@@ -173,17 +172,16 @@ namespace WavoProjects.Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("CreatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("PriorityId")
                         .HasColumnType("int");
@@ -194,14 +192,14 @@ namespace WavoProjects.Api.Migrations
                     b.Property<int?>("SortOrder")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("StartedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime?>("StartedOn")
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("UpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
@@ -209,76 +207,74 @@ namespace WavoProjects.Api.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("PriorityProject");
+                    b.ToTable("PriorityProject", t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("WavoProjects.Api.Models.QueryModels.PriorityTeam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("PriorityTeam");
+                    b.ToTable("PriorityTeam", t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("WavoProjects.Api.Models.QueryModels.PriorityView", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("_PriorityView");
+                    b.ToTable("PriorityView", t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("WavoProjects.Api.Models.Snapshot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
-                    b.Property<DateTimeOffset>("SnapshotTakenOn")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("SnapshotTakenOn")
+                        .HasColumnType("datetime");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Snapshots");
+                    b.ToTable("Snapshot");
                 });
 
             modelBuilder.Entity("WavoProjects.Api.Models.Team", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("char(7)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams");
+                    b.ToTable("Team");
 
                     b.HasData(
                         new

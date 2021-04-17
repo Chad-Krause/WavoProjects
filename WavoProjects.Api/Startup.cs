@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +32,13 @@ namespace WavoProjects.Api
                 {
                     options.EnableSensitiveDataLogging();
                     options.EnableDetailedErrors();
-                    options.UseSqlServer(Configuration.GetConnectionString("WavoProjectsContext"));
+                    if(Configuration.GetValue<bool>("ProductionDatabase"))
+                    {
+                        options.UseMySQL(Configuration.GetConnectionString("WavoProjectsContextProd"));
+                    } else
+                    {
+                        options.UseSqlServer(Configuration.GetConnectionString("WavoProjectsContext"));
+                    }
                 } else
                 {
                     //Production server uses MariaDB
@@ -41,16 +48,32 @@ namespace WavoProjects.Api
             });
             services.AddSignalR();
 
-            services.AddCors(options =>
+            if(CurrentEnv.IsDevelopment())
             {
-                options.AddPolicy(name: "dev", builder =>
+                services.AddCors(options =>
                 {
-                    builder.WithOrigins("http://localhost:4200");
-                    builder.AllowAnyMethod();
-                    builder.AllowAnyHeader();
-                    builder.AllowCredentials();
+                    options.AddPolicy(name: "dev", builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200", "http://localhost:4201");
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                        builder.AllowCredentials();
+                    });
                 });
-            });
+            } else
+            {
+                services.AddCors(options =>
+                {
+                    options.AddPolicy(name: "dev", builder =>
+                    {
+                        builder.WithOrigins("https://wavops.waverlyrobotics.org");
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                        builder.AllowCredentials();
+                    });
+                });
+            }
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +83,12 @@ namespace WavoProjects.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
 
             app.UseHttpsRedirection();
 

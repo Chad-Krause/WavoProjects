@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>a95c94e8-4c70-4c63-84fc-068cbc6048cb</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,12 +18,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MySql.Data" Version="8.0.23" />
-    <PackageReference Include="MySql.Data.EntityFramework" Version="8.0.23" />
+    <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 

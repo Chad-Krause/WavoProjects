@@ -20,6 +20,12 @@ namespace WavoProjects.Api.Models
     {
         public void Configure(EntityTypeBuilder<Team> entity)
         {
+            entity.Property(i => i.Id).ValueGeneratedOnAdd();
+            entity.Property(i => i.Name).HasMaxLength(500);
+            entity.Property(i => i.Color).HasColumnType("char(7)");
+            entity.ToTable("Team");
+
+
             entity.HasData(
                 new Team { Id = 1, Name = "General", Color = "#ef0000" },
                 new Team { Id = 2, Name = "Business", Color = "#00ff2d" },

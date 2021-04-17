@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,9 +57,9 @@ namespace WavoProjects.Api.Models.QueryModels
         public int? TeamId { get; set; }
         public int? PriorityId { get; set; }
         public int? SortOrder { get; set; }
-        public DateTimeOffset? StartedOn { get; set; }
-        public DateTimeOffset CreatedOn { get; set; }
-        public DateTimeOffset? UpdatedOn { get; set; }
+        public DateTime? StartedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
 
         public virtual PriorityTeam Team { get; set; }
     }
@@ -79,5 +81,28 @@ namespace WavoProjects.Api.Models.QueryModels
         public int Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
+    }
+    public partial class PriorityViewConfiguration : IEntityTypeConfiguration<PriorityView>
+    {
+        public void Configure(EntityTypeBuilder<PriorityView> entity)
+        { 
+            entity.ToTable(nameof(PriorityView), t => t.ExcludeFromMigrations());
+        }
+    }
+
+    public partial class PriorityProjectConfiguration : IEntityTypeConfiguration<PriorityProject>
+    {
+        public void Configure(EntityTypeBuilder<PriorityProject> entity)
+        {
+            entity.ToTable(nameof(PriorityProject), t => t.ExcludeFromMigrations());
+        }
+    }
+
+    public partial class PriorityTeamConfiguration : IEntityTypeConfiguration<PriorityTeam>
+    {
+        public void Configure(EntityTypeBuilder<PriorityTeam> entity)
+        {
+            entity.ToTable(nameof(PriorityTeam), t => t.ExcludeFromMigrations());
+        }
     }
 }

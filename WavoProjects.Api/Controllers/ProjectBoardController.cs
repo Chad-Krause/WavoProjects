@@ -39,10 +39,11 @@ namespace WavoProjects.Api.Controllers
             Project dbProject = await m_db.Projects.SingleAsync(i => i.Id == model.Id);
             dbProject.PriorityId = model.NewPriorityId;
             dbProject.SortOrder = model.SortOrders.Single(i => dbProject.Id == i.ProjectId).SortOrder;
+            dbProject.UpdatedOn = DateTime.Now;
 
             if(dbProject.StartedOn == null)
             {
-                dbProject.StartedOn = DateTimeOffset.Now;
+                dbProject.StartedOn = DateTime.Now;
             }
 
             if(model.NewPriorityId != 5)
@@ -72,8 +73,8 @@ namespace WavoProjects.Api.Controllers
                 TeamId = project.TeamId,
                 PriorityId = 1,
                 SortOrder = 999999,
-                CreatedOn = DateTimeOffset.Now,
-                UpdatedOn = DateTimeOffset.Now
+                CreatedOn = DateTime.Now,
+                UpdatedOn = DateTime.Now
             });
 
             await m_db.SaveChangesAsync();

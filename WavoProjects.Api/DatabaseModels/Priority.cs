@@ -19,6 +19,10 @@ namespace WavoProjects.Api.Models
     {
         public void Configure(EntityTypeBuilder<Priority> entity)
         {
+            entity.Property(i => i.Id).ValueGeneratedOnAdd();
+            entity.Property(i => i.Name).HasMaxLength(500);
+            entity.ToTable("Priority");
+
             entity.HasData(
                 new Priority { Id = 1, Name = "Unassigned" },
                 new Priority { Id = 2, Name = "High" },
