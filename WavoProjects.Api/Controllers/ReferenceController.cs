@@ -24,6 +24,7 @@ namespace WavoProjects.Api.Controllers
         [HttpGet("GetTeams")]
         public async Task<List<Team>> GetTeams()
         {
+            m_logger.LogInformation($"GetTeams");
             return await m_db.Teams.ToListAsync();
         }
     }

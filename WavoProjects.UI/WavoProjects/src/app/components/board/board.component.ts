@@ -22,7 +22,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   priorities: Priority[] = [];
   onlyProjects: Project[] = [];
   dragSubject: Subject<CdkDragMove> = new Subject<CdkDragMove>();
-  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(33));
+  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(100));
   remoteProjectDrags = {};
   exampleProject: Project = ExampleProjects[0];
   screenWidth: number;

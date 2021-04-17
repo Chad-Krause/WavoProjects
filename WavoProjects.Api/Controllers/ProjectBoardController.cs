@@ -30,12 +30,14 @@ namespace WavoProjects.Api.Controllers
         [HttpGet("test")]
         public string Test()
         {
+            m_logger.LogInformation($"Test Api reached at {DateTime.Now}");
             return "test";
         }
 
         [HttpPost("UpdateProjectPriorityAndSortOrders")]
         public async Task<bool> UpdateProjectPriorityAndSortOrders([FromBody] UpdateProjectAndSortOrdersModel model)
         {
+            m_logger.LogInformation($"UpdateProjectPriorityAndSortOrders projectId: {model.Id}");
             Project dbProject = await m_db.Projects.SingleAsync(i => i.Id == model.Id);
             dbProject.PriorityId = model.NewPriorityId;
             dbProject.SortOrder = model.SortOrders.Single(i => dbProject.Id == i.ProjectId).SortOrder;
@@ -66,6 +68,7 @@ namespace WavoProjects.Api.Controllers
         [HttpPost("CreateProject")]
         public async Task CreateProject([FromBody] Project project)
         {
+            m_logger.LogInformation($"CreateProject name: {project.Name}");
             m_db.Projects.Add(new Project
             {
                 Name = project.Name,
@@ -83,6 +86,7 @@ namespace WavoProjects.Api.Controllers
 
         private async Task SendProjectUpdate()
         {
+            m_logger.LogInformation($"Sending SignalR Project Updates");
             await m_projectHub.Clients.Groups(ProjectHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
         }
     }

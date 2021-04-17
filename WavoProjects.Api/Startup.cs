@@ -42,8 +42,8 @@ namespace WavoProjects.Api
                 } else
                 {
                     //Production server uses MariaDB
-                    //options.UseMySQL();
-                    throw new NotImplementedException("Production database not set up!");
+                    options.UseMySQL(Configuration.GetConnectionString("WavoProjectsContextProd"));
+                    //throw new NotImplementedException("Production database not set up!");
                 }
             });
             services.AddSignalR();
@@ -66,7 +66,7 @@ namespace WavoProjects.Api
                 {
                     options.AddPolicy(name: "dev", builder =>
                     {
-                        builder.WithOrigins("https://wavops.waverlyrobotics.org");
+                        builder.WithOrigins("https://wavops.waverlyrobotics.org", "http://localhost:4200");
                         builder.AllowAnyMethod();
                         builder.AllowAnyHeader();
                         builder.AllowCredentials();
