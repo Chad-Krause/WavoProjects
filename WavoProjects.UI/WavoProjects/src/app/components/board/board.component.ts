@@ -11,6 +11,7 @@ import { ProjectDrag } from 'src/app/models/project-drag';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmCompletionComponent } from '../dialogs/confirm-completion/confirm-completion.component';
 import { AddProjectComponent } from '../dialogs/add-project/add-project.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-board',
@@ -22,7 +23,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   priorities: Priority[] = [];
   onlyProjects: Project[] = [];
   dragSubject: Subject<CdkDragMove> = new Subject<CdkDragMove>();
-  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(100));
+  dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(environment.dragUpdateDelayMS));
   remoteProjectDrags = {};
   exampleProject: Project = ExampleProjects[0];
   screenWidth: number;
