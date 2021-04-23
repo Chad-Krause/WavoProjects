@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BoardTesComponent } from './components/board-tes/board-tes.component';
-import { BoardComponent } from './components/board/board.component';
+import { BoardComponent } from './modules/project-board/board/board.component';
 
 
 const routes: Routes = [
@@ -10,8 +9,8 @@ const routes: Routes = [
     component: BoardComponent
   },
   {
-    path: "test",
-    component: BoardTesComponent
+    path: "settings",
+    loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
   },
   {
     path: "**",

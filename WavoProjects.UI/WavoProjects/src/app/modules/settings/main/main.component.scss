@@ -1,0 +1,25 @@
+.settings-container { 
+    display: flex;
+    height: calc(100vh - 64px);
+}
+
+.list-menu {
+    display: block;
+    width: 200px;
+    border-right: 1px solid #cbcbcb;
+}
+
+mat-list-item {
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+mat-list-item:hover {
+    background-color: lightgray;
+}
+
+.current-nav {
+    color: #4b0082;
+    background-color: #4b008217;
+}
