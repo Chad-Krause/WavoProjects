@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using WavoProjects.Api.DatabaseModels;
+using WavoProjects.Api.Helpers;
 using WavoProjects.Api.Hubs;
 using WavoProjects.Api.Models;
 
@@ -32,14 +34,16 @@ namespace WavoProjects.Api
                 {
                     options.EnableSensitiveDataLogging();
                     options.EnableDetailedErrors();
-                    if(Configuration.GetValue<bool>("ProductionDatabase"))
+                    if (Configuration.GetValue<bool>("ProductionDatabase"))
                     {
                         options.UseMySQL(Configuration.GetConnectionString("WavoProjectsContextProd"));
-                    } else
+                    }
+                    else
                     {
                         options.UseSqlServer(Configuration.GetConnectionString("WavoProjectsContext"));
                     }
-                } else
+                }
+                else
                 {
                     //Production server uses MariaDB
                     options.UseMySQL(Configuration.GetConnectionString("WavoProjectsContextProd"));
@@ -48,11 +52,9 @@ namespace WavoProjects.Api
             });
             services.AddSignalR();
 
-            if(CurrentEnv.IsDevelopment())
-            {
-                services.AddCors(options =>
+            services.AddCors(options =>
                 {
-                    options.AddPolicy(name: "dev", builder =>
+                    options.AddPolicy(name: "prod", builder =>
                     {
                         builder.WithOrigins("http://localhost:4200", "http://localhost:4201");
                         builder.AllowAnyMethod();
@@ -60,9 +62,8 @@ namespace WavoProjects.Api
                         builder.AllowCredentials();
                     });
                 });
-            } else
-            {
-                services.AddCors(options =>
+
+            services.AddCors(options =>
                 {
                     options.AddPolicy(name: "dev", builder =>
                     {
@@ -72,8 +73,10 @@ namespace WavoProjects.Api
                         builder.AllowCredentials();
                     });
                 });
-            }
-            
+
+            services.AddOptions<JWTConfig>("JwtConfig");
+            services.AddTransient<AuthenticationHelper>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,7 +95,15 @@ namespace WavoProjects.Api
 
             app.UseHttpsRedirection();
 
-            app.UseCors("dev");
+            if (env.IsProduction())
+            {
+                app.UseCors("prod");
+            }
+            else
+            {
+                app.UseCors("dev");
+            }
+
 
             app.UseRouting();
 
