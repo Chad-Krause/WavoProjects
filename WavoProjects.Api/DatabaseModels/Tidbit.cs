@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +19,14 @@ namespace WavoProjects.Api.DatabaseModels
         public User User { get; set; }
         public TidbitType TidbitType { get; set; }
 
+    }
+
+    public partial class TidbitConfiguration : IEntityTypeConfiguration<Tidbit>
+    {
+        public void Configure(EntityTypeBuilder<Tidbit> entity)
+        {
+            entity.ToTable("Tidbit");
+            entity.HasKey(tidbit => new { tidbit.UserId, tidbit.TidbitTypeId });
+        }
     }
 }

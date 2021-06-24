@@ -19,16 +19,30 @@ namespace WavoProjects.Api.Hubs
 
         public ProjectHub(WavoContext db, ILogger<ProjectHub> logger)
         {
-            m_db = db;
+            try
+            {
+                m_db = db;
+            } catch (Exception e)
+            {
+                m_logger.LogError(e, "Error initializing DB");
+            }
+            
             m_logger = logger;
         }
 
         #region Project Board
         public async Task SubscribeToProjectPage()
         {
-            m_logger.LogInformation($"Adding client {Context.ConnectionId} to project board group");
-            await Groups.AddToGroupAsync(Context.ConnectionId, kProjectPageGroup);
-            await Clients.Caller.UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
+            try
+            {
+                m_logger.LogInformation($"Adding client {Context.ConnectionId} to project board group");
+                await Groups.AddToGroupAsync(Context.ConnectionId, kProjectPageGroup);
+                await Clients.Caller.UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
+            } catch (Exception e)
+            {
+                m_logger.LogError(e, "Error serializing data");
+            }
+            
         }
 
         public async Task UnsubscribeToProjectPage()

@@ -10,6 +10,7 @@ using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Helpers;
 using WavoProjects.Api.Hubs;
 using WavoProjects.Api.Models;
+using WavoProjects.Api.Middleware;
 
 namespace WavoProjects.Api
 {
@@ -56,7 +57,7 @@ namespace WavoProjects.Api
                 {
                     options.AddPolicy(name: "prod", builder =>
                     {
-                        builder.WithOrigins("http://localhost:4200", "http://localhost:4201");
+                        builder.WithOrigins("http://localhost:4200", "http://localhost:4201", "http://localhost:7226");
                         builder.AllowAnyMethod();
                         builder.AllowAnyHeader();
                         builder.AllowCredentials();
@@ -67,7 +68,7 @@ namespace WavoProjects.Api
                 {
                     options.AddPolicy(name: "dev", builder =>
                     {
-                        builder.WithOrigins("https://wavops.waverlyrobotics.org", "http://localhost:4200");
+                        builder.WithOrigins("https://wavops.waverlyrobotics.org", "http://localhost:4200", "http://localhost:7226");
                         builder.AllowAnyMethod();
                         builder.AllowAnyHeader();
                         builder.AllowCredentials();
@@ -75,7 +76,7 @@ namespace WavoProjects.Api
                 });
 
             services.AddOptions<JWTConfig>("JwtConfig");
-            services.AddTransient<AuthenticationHelper>();
+            //services.AddTransient<AuthenticationHelper>();
 
         }
 
@@ -108,6 +109,7 @@ namespace WavoProjects.Api
             app.UseRouting();
 
             app.UseAuthorization();
+            //app.UseWavOpsAuthMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

@@ -21,13 +21,14 @@ namespace WavoProjects.Api.Controllers
         private readonly ILogger<UserController> m_logger;
         private WavoContext m_db;
         private AuthenticationHelper m_auth;
-        private User m_user;
+        private User? m_user;
         public UserController(ILogger<UserController> logger, WavoContext context, AuthenticationHelper authHelper)
         {
             m_logger = logger;
             m_db = context;
             m_auth = authHelper;
-            m_user = (User)HttpContext.Items["User"];
+            var x = HttpContext;
+            
         }
 
         [HttpPost("Login")]
@@ -72,13 +73,13 @@ namespace WavoProjects.Api.Controllers
             return new CheckEmailResponse(exists);
         }
 
-        [HttpGet]
+        [HttpGet("GetUser")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             m_logger.LogInformation($"GetUser - id: {id}");
             if (!IsCurrentUserOrAdmin(id))
             {
-                m_logger.LogWarning($"GetUser called from someonw without acccess! Perpetrator: {m_user.FullName}");
+                m_logger.LogWarning($"GetUser called from someone without acccess! Perpetrator: {m_user?.FullName}");
                 return Unauthorized();
             }
 
@@ -111,9 +112,31 @@ namespace WavoProjects.Api.Controllers
         }
 
 
+        [HttpGet("GetAllUsers")]
+        public async Task<ActionResult<List<User>>> GetAllUsers()
+        {
+            m_logger.LogInformation($"GetAllUsers");
+            if (!IsAdmin())
+            {
+                m_logger.LogWarning($"GetAllUsers called from someone without acccess! Perpetrator: {m_user?.FullName}");
+                return Unauthorized();
+            }
+
+            return await m_db.Users.Where(i => i.Enabled == true).ToListAsync();
+        }
+
         private bool IsCurrentUserOrAdmin(int accessedUserId)
         {
+            if (m_user == null) return false;
+
             return m_user.Id == accessedUserId || m_user.RoleId == 1;
+        }
+
+        private bool IsAdmin()
+        {
+            if (m_user == null) return false;
+
+            return m_user.RoleId == 1;
         }
     }
 }

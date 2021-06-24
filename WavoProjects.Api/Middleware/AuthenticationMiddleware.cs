@@ -10,12 +10,12 @@ using WavoProjects.Api.Helpers;
 namespace WavoProjects.Api.Middleware
 {
     // Gets the token and assigns the user to the context
-    public class AuthenticationMiddlware
+    public class AuthenticationMiddleware
     {
         private readonly RequestDelegate m_next;
         private readonly AuthenticationHelper m_jwtHelper;
 
-        public AuthenticationMiddlware(RequestDelegate next, AuthenticationHelper jwtHelper)
+        public AuthenticationMiddleware(RequestDelegate next, AuthenticationHelper jwtHelper)
         {
             m_next = next;
             m_jwtHelper = jwtHelper;
@@ -47,9 +47,9 @@ namespace WavoProjects.Api.Middleware
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class MiddlewareExtensions
     {
-        public static IApplicationBuilder UseMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseWavOpsAuthMiddleware(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<AuthenticationMiddlware>();
+            return builder.UseMiddleware<AuthenticationMiddleware>();
         }
     }
 }

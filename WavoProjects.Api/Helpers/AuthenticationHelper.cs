@@ -19,16 +19,18 @@ namespace WavoProjects.Api.Helpers
         private WavoContext m_db;
         private ILogger<AuthenticationHelper> m_logger;
 
-        public AuthenticationHelper(IOptionsMonitor<JWTConfig> jwtConfig, WavoContext db, ILogger<AuthenticationHelper> logger)
+        public AuthenticationHelper(IOptionsMonitor<JWTConfig> jwtConfig, IServiceProvider serviceProvider, ILogger<AuthenticationHelper> logger)
         {
             m_jwtConfig = jwtConfig.CurrentValue;
-            m_db = db;
+            //m_db = db;
             m_logger = logger;
 
             jwtConfig.OnChange((newValue, x) =>
             {
                 m_jwtConfig = newValue;
             });
+
+            //serviceProvider.
         }
 
         public async Task<bool> ValidateCredentials(User user, string password)

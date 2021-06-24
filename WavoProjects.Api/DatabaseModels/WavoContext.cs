@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using WavoProjects.Api.Models.QueryModels;
 
 namespace WavoProjects.Api.DatabaseModels

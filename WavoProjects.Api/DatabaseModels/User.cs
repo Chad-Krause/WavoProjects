@@ -34,7 +34,7 @@ namespace WavoProjects.Api.DatabaseModels
         public Role Role { get; set; }
 
         [JsonIgnore]
-        public Image ProfileImage { get; set; }
+        //public Image ProfileImage { get; set; }
 
         public List<Tidbit> Tidbits { get; set; }
 
@@ -48,8 +48,8 @@ namespace WavoProjects.Api.DatabaseModels
         public void Configure(EntityTypeBuilder<User> entity)
         {
             entity.ToTable("User");
+            //entity.HasOne(i => i.ProfileImage).WithOne(j => j.User);
             entity.Property(i => i.Id).ValueGeneratedOnAdd();
-            entity.HasOne(i => i.ProfileImage).WithOne(i => i.User).HasForeignKey("ProfileImageId");
             entity.Property(i => i.CreatedOn).ValueGeneratedOnAdd();
             entity.Property(i => i.UpdatedOn).ValueGeneratedOnAddOrUpdate();
             entity.Ignore(i => i.FullName);
