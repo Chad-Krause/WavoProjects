@@ -2,18 +2,19 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// export const environment = {
-//   production: false,
-//   baseUrl: "https://localhost:44331/",
-//   hubUrl: "https://localhost:44331/ProjectHub"
-// };
-
 export const environment = {
-  production: true,
+  production: false,
   dragUpdateDelayMS: 33,
-  baseUrl: "https://apiv2.waverlyrobotics.org/",
-  hubUrl: "https://apiv2.waverlyrobotics.org/ProjectHub"
+  baseUrl: "https://localhost:44331/",
+  hubUrl: "https://localhost:44331/ProjectHub"
 };
+
+// export const environment = {
+//   production: true,
+//   dragUpdateDelayMS: 33,
+//   baseUrl: "https://apiv2.waverlyrobotics.org/",
+//   hubUrl: "https://apiv2.waverlyrobotics.org/ProjectHub"
+// };
 
 
 /*

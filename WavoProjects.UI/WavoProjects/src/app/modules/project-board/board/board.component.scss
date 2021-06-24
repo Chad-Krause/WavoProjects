@@ -17,8 +17,12 @@
   display: block;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: scroll;
   height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 .list-container:nth-last-child(2){
