@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RealTimeService } from 'src/app/services/real-time.service';
 
 @Component({
   selector: 'title-bar',
@@ -7,13 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitleBarComponent implements OnInit {
 
-  constructor() { }
+  connected: boolean = false;
+
+  constructor(private rt: RealTimeService) { }
 
   ngOnInit(): void {
+    this.rt.isConnected.subscribe(i => this.connected = i);
   }
-  
+
   addProject() {
-    
+
   }
 
 }

@@ -7,7 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using WavoProjects.Api.Hubs;
+using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
+//using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace WavoProjects.Api
 {
@@ -25,7 +27,8 @@ namespace WavoProjects.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            var controllers = services.AddControllers();
+
             services.AddDbContext<WavoContext>(options =>
             {
                 if (CurrentEnv.IsDevelopment())
@@ -48,7 +51,7 @@ namespace WavoProjects.Api
             });
             services.AddSignalR();
 
-            if(CurrentEnv.IsDevelopment())
+            if (CurrentEnv.IsDevelopment())
             {
                 services.AddCors(options =>
                 {

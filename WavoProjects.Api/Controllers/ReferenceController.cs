@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
 
 namespace WavoProjects.Api.Controllers
@@ -26,6 +27,13 @@ namespace WavoProjects.Api.Controllers
         {
             m_logger.LogInformation($"GetTeams");
             return await m_db.Teams.ToListAsync();
+        }
+
+        [HttpGet("GetTeamMembers")]
+        public async Task<List<TeamMember>> GetTeamMembers()
+        {
+            m_logger.LogInformation($"GetTeamMembers");
+            return await m_db.TeamMembers.ToListAsync();
         }
     }
 }

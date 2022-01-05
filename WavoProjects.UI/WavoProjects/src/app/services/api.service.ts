@@ -7,6 +7,7 @@ import { NameId } from '../models/name-id';
 import { Project } from '../models/project';
 import { ProjectSortOrder } from '../models/project-sort-order';
 import { Team } from '../models/team';
+import { TeamMember } from '../models/team-member';
 import { UpdateProjectPriorityAndSortOrders } from '../models/update-project-priority-and-sort-orders';
 
 @Injectable({
@@ -27,10 +28,18 @@ export class ApiService {
   }
 
   getTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.baseUrl + "Reference/GetTeams")
+    return this.http.get<Team[]>(this.baseUrl + "Reference/GetTeams");
+  }
+
+  getTeamMembers(): Observable<TeamMember[]> {
+    return this.http.get<TeamMember[]>(this.baseUrl + "Reference/GetTeamMembers");
+  }
+
+  getProjects(): Observable<Project[]> {
+    return this.http.get<Project[]>(this.baseUrl + "Settings/GetProjects");
   }
 
   createProject(project): Observable<boolean> {
-    return this.http.post<boolean>(this.baseUrl + "ProjectBoard/CreateProject", project)
+    return this.http.post<boolean>(this.baseUrl + "ProjectBoard/CreateProject", project);
   }
 }

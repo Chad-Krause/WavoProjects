@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WavoProjects.Api.Models.QueryModels;
+using WavoProjects.Api.DatabaseModels.QueryModels;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public static class StoredProcedureExtensions
     {
@@ -16,6 +16,8 @@ namespace WavoProjects.Api.Models
         {
             var priorities = await context.Priorities.Include(i => i.Projects.Where(i => i.PriorityId != 5))
                                                         .ThenInclude(j => j.Team)
+                                                    .Include(i => i.Projects.Where(i => i.PriorityId != 5))
+                                                        .ThenInclude(j => j.ProjectOwner)
                                                     .Select(i => new PriorityView(i))
                                                     .ToListAsync();
 

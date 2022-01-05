@@ -3,14 +3,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public class Priority
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
+        [JsonIgnore]
         public virtual List<Project> Projects { get; set; }
 
     }

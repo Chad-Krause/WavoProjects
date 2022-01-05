@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public class Team
     {
@@ -12,6 +13,7 @@ namespace WavoProjects.Api.Models
         public string Name { get; set; }
         public string Color { get; set; }
 
+        [JsonIgnore]
         public virtual List<Project> Projects { get; set; }
 
     }

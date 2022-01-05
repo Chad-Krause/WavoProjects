@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using WavoProjects.Api.Models.QueryModels;
+using WavoProjects.Api.DatabaseModels.QueryModels;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public class WavoContext : DbContext
     {
@@ -15,6 +15,7 @@ namespace WavoProjects.Api.Models
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Snapshot> Snapshots { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TeamMember> TeamMembers { get; set; }
 
         internal virtual DbSet<PriorityView> _PriorityView { get; set; }
 

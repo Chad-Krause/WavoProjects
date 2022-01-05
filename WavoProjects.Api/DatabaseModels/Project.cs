@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using WavoProjects.Api.DatabaseModels;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public class Project
     {
@@ -15,11 +16,13 @@ namespace WavoProjects.Api.Models
         public int? PriorityId { get; set; }
         public int? SortOrder { get; set; }
         public DateTime? StartedOn { get; set; }
+        public int? ProjectOwnerId { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
 
         public virtual Team Team { get; set; }
         public virtual Priority Priority { get; set; }
+        public virtual TeamMember ProjectOwner { get; set; }
     }
 
     public partial class ProjectConfiguration : IEntityTypeConfiguration<Project>

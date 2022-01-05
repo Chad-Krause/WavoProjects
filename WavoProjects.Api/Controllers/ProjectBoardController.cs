@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WavoProjects.Api.Hubs;
+using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
 using WavoProjects.Api.Models.Extensions;
 
@@ -76,6 +77,7 @@ namespace WavoProjects.Api.Controllers
                 TeamId = project.TeamId,
                 PriorityId = 1,
                 SortOrder = 999999,
+                ProjectOwnerId = project.ProjectOwnerId,
                 CreatedOn = DateTime.Now,
                 UpdatedOn = DateTime.Now
             });

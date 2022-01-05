@@ -9,6 +9,7 @@ import { ProjectBoardModule } from './modules/project-board/project-board.module
 import { SharedModule } from './shared.module';
 import { SettingsModule } from './modules/settings/settings.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,

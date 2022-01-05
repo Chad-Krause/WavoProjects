@@ -4,17 +4,19 @@
             <mat-icon mat-list-icon>category</mat-icon>
             <div mat-line>Projects</div>
         </mat-list-item>
-    
+
         <mat-list-item routerLink='/settings/teams' routerLinkActive='current-nav'>
             <mat-icon mat-list-icon>group</mat-icon>
             <div mat-line>Teams</div>
         </mat-list-item>
-    
+
         <mat-list-item routerLink='/settings/misc' routerLinkActive='current-nav'>
             <mat-icon mat-list-icon>settings</mat-icon>
             <div mat-line>Settings</div>
         </mat-list-item>
     </mat-list>
-    
-    <router-outlet></router-outlet>
+    <div class='card-container'>
+      <router-outlet></router-outlet>
+    </div>
+
 </div>

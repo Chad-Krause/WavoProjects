@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WavoProjects.Api.Models;
+using WavoProjects.Api.DatabaseModels;
 
 namespace WavoProjects.Api.Migrations
 {
@@ -103,68 +103,68 @@ namespace WavoProjects.Api.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 865, DateTimeKind.Local).AddTicks(9543),
+                            CreatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 792, DateTimeKind.Local).AddTicks(8980),
                             Description = "T-Shirt Cannon Robot",
                             Name = "T-Shirt Cannon Robot",
                             PriorityId = 1,
                             SortOrder = 1,
                             TeamId = 3,
-                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 865, DateTimeKind.Local).AddTicks(9977)
+                            UpdatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 792, DateTimeKind.Local).AddTicks(9490)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(928),
+                            CreatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(570),
                             Description = "Sponsor Thank Yous",
                             Name = "Sponsor Thank Yous",
                             PriorityId = 1,
                             SortOrder = 2,
                             TeamId = 1,
-                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(939)
+                            UpdatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(580)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(942),
+                            CreatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(580),
                             Description = "Chairman's Presentation",
                             Name = "Chairman's Presentation",
                             PriorityId = 1,
                             SortOrder = 3,
                             TeamId = 2,
-                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(945)
+                            UpdatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(580)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1008),
+                            CreatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(590),
                             Description = "Organize Electrical Toolbox",
                             Name = "Organize Electrical Toolbox",
                             PriorityId = 1,
                             SortOrder = 4,
                             TeamId = 4,
-                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1011)
+                            UpdatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(590)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1014),
+                            CreatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(590),
                             Description = "Make New Router Vacuum Table",
                             Name = "Make New Router Vacuum Table",
                             PriorityId = 1,
                             SortOrder = 5,
                             TeamId = 6,
-                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1016)
+                            UpdatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(590)
                         },
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1019),
+                            CreatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(600),
                             Description = "Develop Path Planning",
                             Name = "Develop Path Planning",
                             PriorityId = 1,
                             SortOrder = 6,
                             TeamId = 4,
-                            UpdatedOn = new DateTime(2021, 4, 12, 17, 36, 40, 866, DateTimeKind.Local).AddTicks(1021)
+                            UpdatedOn = new DateTime(2021, 12, 26, 10, 48, 38, 793, DateTimeKind.Local).AddTicks(600)
                         });
                 });
 

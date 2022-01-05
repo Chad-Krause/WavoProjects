@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WavoProjects.Api.Models.QueryModels
+namespace WavoProjects.Api.DatabaseModels.QueryModels
 {
     public class PriorityView
     {
@@ -42,6 +42,8 @@ namespace WavoProjects.Api.Models.QueryModels
             PriorityId = p.PriorityId;
             SortOrder = p.SortOrder;
             StartedOn = p.StartedOn;
+            ProjectOwnerId = p.ProjectOwnerId;
+            ProjectOwner = p.ProjectOwner;
             CreatedOn = p.CreatedOn;
             UpdatedOn = p.UpdatedOn;
 
@@ -57,6 +59,8 @@ namespace WavoProjects.Api.Models.QueryModels
         public int? TeamId { get; set; }
         public int? PriorityId { get; set; }
         public int? SortOrder { get; set; }
+        public int? ProjectOwnerId { get; set; }
+        public TeamMember ProjectOwner { get; set; }
         public DateTime? StartedOn { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
@@ -82,6 +86,7 @@ namespace WavoProjects.Api.Models.QueryModels
         public string Name { get; set; }
         public string Color { get; set; }
     }
+
     public partial class PriorityViewConfiguration : IEntityTypeConfiguration<PriorityView>
     {
         public void Configure(EntityTypeBuilder<PriorityView> entity)

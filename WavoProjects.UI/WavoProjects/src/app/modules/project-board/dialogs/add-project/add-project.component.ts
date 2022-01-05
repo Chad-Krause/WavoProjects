@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { NameId } from 'src/app/models/name-id';
 import { Team } from 'src/app/models/team';
+import { TeamMember } from 'src/app/models/team-member';
 
 @Component({
   selector: 'app-add-project',
@@ -14,10 +15,12 @@ export class AddProjectComponent implements OnInit {
   projectForm = new FormGroup({
     name: new FormControl("", Validators.required),
     description: new FormControl(""),
-    teamId: new FormControl(null, Validators.required)
+    teamId: new FormControl(null, Validators.required),
+    projectOwnerId: new FormControl(null)
   });
 
   teams: Team[] = [];
+  teamMembers: TeamMember[] = [];
 
   constructor(public dialogRef: MatDialogRef<AddProjectComponent>, private api: ApiService) {
   }
@@ -25,6 +28,11 @@ export class AddProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getTeams().subscribe(teams => this.teams = teams.map(i => new Team(i)));
+    this.api.getTeamMembers().subscribe(tm => {
+      this.teamMembers = tm.map(i => new TeamMember(i));
+      this.teamMembers.unshift(new TeamMember({id: null, name: "None"}));
+      console.log(this.teamMembers)
+    });
   }
 
   addProject() {
