@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{exitingTeam != null ? "Edit" : "Create"}} Team</h1>
+<h1 mat-dialog-title>{{existingTeam != null ? "Edit" : "Create"}} Team</h1>
 <div mat-dialog-content>
 
     <project-item [project]="exampleProject"></project-item>
@@ -19,5 +19,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onNoClick()">Cancel</button>
-  <button [disabled]="loading" mat-raised-button color="primary" (click)='addTeam()' [disabled]='!teamForm.valid'>{{exitingTeam != null ? "Edit" : "Create"}} Team</button>
+  <button [disabled]="loading" mat-raised-button color="primary" (click)='addTeam()' [disabled]='!teamForm.valid'>{{existingTeam != null ? "Edit" : "Create"}} Team</button>
 </div>

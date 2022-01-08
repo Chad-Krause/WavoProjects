@@ -34,5 +34,14 @@ namespace WavoProjects.Api.DatabaseModels
             var tsExtInfo = await context.Set<TeamMemberExtendedInformation>().FromSqlInterpolated($"CALL `GetTeamMembersWithTimesheetInformation`").ToListAsync();
             return tsExtInfo;
         }
+
+        /**
+         * Returns a list of team members for the timeclock
+         */
+        public static async Task<List<TimesheetTeamMember>> GetTimesheetTeamMembers(this WavoContext context)
+        {
+            var members = await context.Set<TimesheetTeamMember>().FromSqlInterpolated($"CALL `GetTimesheetUsers`").ToListAsync();
+            return members;
+        }
     }
 }

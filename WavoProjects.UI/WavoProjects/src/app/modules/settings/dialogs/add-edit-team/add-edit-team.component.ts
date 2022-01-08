@@ -12,7 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AddEditTeamComponent implements OnInit {
 
-  exitingTeam?: Team;
+  existingTeam?: Team;
   loading: boolean = false;
   exampleProject: Project = new Project({name: "T-Shirt Cannon Robot", teamId: 3, team: {id: 3, name: "Team Name", color: "#c32af3"}});
 
@@ -24,7 +24,7 @@ export class AddEditTeamComponent implements OnInit {
 
   constructor(private api: ApiService, private dialogRef: MatDialogRef<AddEditTeamComponent>, @Inject(MAT_DIALOG_DATA) public data?: Team) {
     if(data != null) {
-      this.exitingTeam = data;
+      this.existingTeam = data;
       this.teamForm.setValue({ id: data.id, name: data.name, color: data.color });
     }
   }

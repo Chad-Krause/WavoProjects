@@ -16,7 +16,7 @@ export const environment = {
   // baseUrl: "https://localhost:5001/",
   // hubUrl: "https://localhost:5001/ProjectHub"
   baseUrl: "https://localhost:44331/",
-  hubUrl: "https://localhost:44331/ProjectHub"
+  hubUrl: "https://localhost:44331/WavOpsHub"
 };
 
 

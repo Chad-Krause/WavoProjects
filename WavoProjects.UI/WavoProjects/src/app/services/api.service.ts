@@ -9,6 +9,7 @@ import { ProjectSortOrder } from '../models/project-sort-order';
 import { Team } from '../models/team';
 import { TeamMember } from '../models/team-member';
 import { TeamMemberTimesheetRow } from '../models/team-member-timesheet-row';
+import { Timesheet } from '../models/timesheet';
 import { UpdateProjectPriorityAndSortOrders } from '../models/update-project-priority-and-sort-orders';
 
 @Injectable({
@@ -70,5 +71,25 @@ export class ApiService {
 
   changePin(form): Observable<boolean> {
     return this.http.post<boolean>(this.baseUrl + "Settings/ChangePin", form);
+  }
+
+  getTimesheets(teamMemberId: number): Observable<Timesheet[]> {
+    return this.http.get<Timesheet[]>(this.baseUrl + "Settings/GetTimesheets", { params: {teamMemberId: teamMemberId.toString()}});
+  }
+
+  createOrUpdateTimesheet(timesheet): Observable<boolean> {
+    return this.http.post<boolean>(this.baseUrl + "Settings/CreateOrUpdateTimesheet", timesheet);
+  }
+
+  deleteTimesheet(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(this.baseUrl + "Settings/DeleteTimesheet", { params: {id: id.toString()}});
+  }
+
+  clockIn(teamMemberId: number): Observable<boolean> {
+    return this.http.post<boolean>(this.baseUrl + "Timesheet/ClockIn", teamMemberId);
+  }
+
+  clockOut(teamMemberId: number): Observable<boolean> {
+    return this.http.post<boolean>(this.baseUrl + "Timesheet/ClockOut", teamMemberId);
   }
 }

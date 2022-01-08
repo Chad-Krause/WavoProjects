@@ -15,11 +15,12 @@ import { ProjectBoardModule } from '../project-board/project-board.module';
 import { TeamMemberTimesheetDetailComponent } from './team-member-timesheet-detail/team-member-timesheet-detail.component';
 import { AddEditTeamMemberComponent } from './dialogs/add-edit-team-member/add-edit-team-member.component';
 import { ChangePinComponent } from './dialogs/change-pin/change-pin.component';
+import { AddEditTimesheetComponent } from './dialogs/add-edit-timesheet/add-edit-timesheet.component';
 
 
 
 @NgModule({
-  declarations: [MainComponent, EditProjectsComponent, EditTeamMembersComponent, EditTeamsComponent, AddEditTeamComponent, TeamMemberTimesheetDetailComponent, AddEditTeamMemberComponent, ChangePinComponent],
+  declarations: [MainComponent, EditProjectsComponent, EditTeamMembersComponent, EditTeamsComponent, AddEditTeamComponent, TeamMemberTimesheetDetailComponent, AddEditTeamMemberComponent, ChangePinComponent, AddEditTimesheetComponent],
   imports: [
     MatTableModule,
     CommonModule,

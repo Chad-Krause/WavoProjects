@@ -12,7 +12,8 @@ namespace WavoProjects.Api.DatabaseModels
         public int? Id { get; set; }
         public int TeamMemberId { get; set; }
         public DateTime ClockIn { get; set; }
-        public DateTime ClockOut { get; set; }
+        public DateTime? ClockOut { get; set; }
+        public bool AutoClockOut { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
         public DateTime? DeletedOn { get; set; }

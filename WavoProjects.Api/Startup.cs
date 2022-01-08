@@ -9,6 +9,7 @@ using System;
 using WavoProjects.Api.Hubs;
 using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
+using WavoProjects.Api.Workers;
 //using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace WavoProjects.Api
@@ -76,7 +77,10 @@ namespace WavoProjects.Api
                     });
                 });
             }
-            
+
+
+            services.AddHostedService<StartUpWorker>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,7 +108,7 @@ namespace WavoProjects.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ProjectHub>("/ProjectHub");
+                endpoints.MapHub<WavOpsHub>("/WavOpsHub");
             });
         }
     }

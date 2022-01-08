@@ -13,6 +13,15 @@ const routes: Routes = [
     loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule)
   },
   {
+    path: "timesheets",
+    loadChildren: () => import('./modules/timesheets/timesheets.module').then(m => m.TimesheetsModule)
+  },
+  {
+    path: "timesheet",
+    redirectTo: "timesheets",
+    pathMatch: "full"
+  },
+  {
     path: "**",
     redirectTo: "/board",
     pathMatch: "full"

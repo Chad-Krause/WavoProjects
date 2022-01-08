@@ -39,7 +39,7 @@
     <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
             <div [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" class='timesheet-detail'>
-                <team-member-timesheet-detail></team-member-timesheet-detail>
+                <team-member-timesheet-detail class='details' [teamMember]="element" *ngIf="element == expandedElement"></team-member-timesheet-detail>
             </div>
         </td>
     </ng-container>

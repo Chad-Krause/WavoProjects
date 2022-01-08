@@ -19,9 +19,9 @@ namespace WavoProjects.Api.Controllers
     {
         private readonly ILogger<ProjectBoardController> m_logger;
         private WavoContext m_db;
-        private readonly IHubContext<ProjectHub, IWavOpsClient> m_projectHub;
+        private readonly IHubContext<WavOpsHub, IWavOpsHubClient> m_projectHub;
 
-        public ProjectBoardController(ILogger<ProjectBoardController> logger, WavoContext context, IHubContext<ProjectHub, IWavOpsClient> hub)
+        public ProjectBoardController(ILogger<ProjectBoardController> logger, WavoContext context, IHubContext<WavOpsHub, IWavOpsHubClient> hub)
         {
             m_logger = logger;
             m_db = context;
@@ -102,7 +102,7 @@ namespace WavoProjects.Api.Controllers
         private async Task SendProjectUpdate()
         {
             m_logger.LogInformation($"Sending SignalR Project Updates");
-            await m_projectHub.Clients.Groups(ProjectHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
+            await m_projectHub.Clients.Groups(WavOpsHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
         }
     }
 }

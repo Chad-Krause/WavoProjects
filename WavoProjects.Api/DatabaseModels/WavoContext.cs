@@ -11,6 +11,7 @@ namespace WavoProjects.Api.DatabaseModels
 
         }
         
+        public virtual DbSet<HubClient> HubClients { get; set; }
         public virtual DbSet<Priority> Priorities { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Snapshot> Snapshots { get; set; }
@@ -20,6 +21,7 @@ namespace WavoProjects.Api.DatabaseModels
 
         internal virtual DbSet<PriorityView> _PriorityView { get; set; }
         internal virtual DbSet<TeamMemberExtendedInformation> _TeamMemberExtendedInformation { get; set; }
+        internal virtual DbSet<TimesheetTeamMember> _TimesheetTeamUser { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
