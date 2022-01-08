@@ -6,8 +6,8 @@ export class Project {
   id: number;
   name: string;
   description?: string;
-  teamId: number;
-  team: Team;
+  teamId?: number;
+  team?: Team;
   priorityId?: number;
   priority?: Priority;
   sortOrder?: number;
@@ -21,6 +21,10 @@ export class Project {
     Object.keys(obj).forEach(key => {
         this[key] = obj[key];
     });
+
+    if(obj['team'] != null) {
+        this.team = new Team(obj['team']);
+    }
   }
 }
 

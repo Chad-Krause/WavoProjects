@@ -53,7 +53,7 @@ namespace WavoProjects.Api.DatabaseModels.QueryModels
             }
         }
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int? TeamId { get; set; }
@@ -82,7 +82,7 @@ namespace WavoProjects.Api.DatabaseModels.QueryModels
             Color = t.Color;
         }
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
     }

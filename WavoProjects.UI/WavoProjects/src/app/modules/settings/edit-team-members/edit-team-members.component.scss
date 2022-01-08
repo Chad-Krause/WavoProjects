@@ -1,0 +1,41 @@
+table {
+    min-width: 100%;
+}
+
+.move-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action-items button {
+    margin-left: 10px;
+}
+
+.mat-row .mat-cell {
+    background-color: #FFF;
+}
+  
+.mat-row:hover .mat-cell {
+    background-color: #00000010;
+}
+
+.timesheet-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+tr.timesheet-detail-row {
+    height: 0;
+}
+
+.normal-row td {
+    border-bottom-width: 0;
+}
+
+.mat-column-name {
+    width: 40%;
+}
+
+.mat-column-trackTime mat-icon{
+    margin-left: 20px;
+}

@@ -25,5 +25,14 @@ namespace WavoProjects.Api.DatabaseModels
 
             return priorities;
         }
+
+        /**
+         * Returns a list of team members with hours logged and distinct days logged
+         */
+        public static async Task<List<TeamMemberExtendedInformation>> GetTeamMembersWithTimesheetInfo(this WavoContext context)
+        {
+            var tsExtInfo = await context.Set<TeamMemberExtendedInformation>().FromSqlInterpolated($"CALL `GetTeamMembersWithTimesheetInformation`").ToListAsync();
+            return tsExtInfo;
+        }
     }
 }

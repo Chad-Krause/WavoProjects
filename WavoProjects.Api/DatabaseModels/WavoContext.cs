@@ -16,8 +16,10 @@ namespace WavoProjects.Api.DatabaseModels
         public virtual DbSet<Snapshot> Snapshots { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<TeamMember> TeamMembers { get; set; }
+        public virtual DbSet<Timesheet> Timesheets { get; set; }
 
         internal virtual DbSet<PriorityView> _PriorityView { get; set; }
+        internal virtual DbSet<TeamMemberExtendedInformation> _TeamMemberExtendedInformation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

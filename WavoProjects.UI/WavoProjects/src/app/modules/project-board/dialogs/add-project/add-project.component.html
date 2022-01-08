@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add Project</h1>
+<h1 mat-dialog-title>{{exitingProject != null ? "Edit" : "Create"}} Project</h1>
 <div mat-dialog-content>
     <form class="example-form" [formGroup]="projectForm">
         <mat-form-field class="w-100">
@@ -24,7 +24,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Project Owner</mat-label>
+            <mat-label>Project Champion</mat-label>
             <mat-select formControlName='projectOwnerId'>
                 <mat-option *ngFor="let tm of teamMembers" [value]="tm.id">
                     {{tm.name}}
@@ -36,5 +36,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onNoClick()">Cancel</button>
-  <button mat-raised-button color="primary" (click)='addProject()' [disabled]='!projectForm.valid'>Create Project</button>
+  <button [disabled]="loading" mat-raised-button color="primary" (click)='addProject()' [disabled]='!projectForm.valid'>{{exitingProject != null ? "Edit" : "Create"}} Project</button>
 </div>

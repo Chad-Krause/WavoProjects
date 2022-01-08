@@ -17,6 +17,9 @@ export class ProjectItemComponent implements OnInit {
   }
 
   getColor() {
+    if(this.project.teamId == null) {
+      return {};
+    }
     return {'border-color': this.project.team.color, 'background-color': this.project.team.backgroundColor};
   }
 
