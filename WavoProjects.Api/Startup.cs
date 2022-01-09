@@ -10,7 +10,7 @@ using WavoProjects.Api.Hubs;
 using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
 using WavoProjects.Api.Workers;
-//using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WavoProjects.Api
 {
@@ -28,7 +28,10 @@ namespace WavoProjects.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var controllers = services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ResponseCacheAttribute { NoStore = true, Location = ResponseCacheLocation.None });
+            });
 
             services.AddDbContext<WavoContext>(options =>
             {

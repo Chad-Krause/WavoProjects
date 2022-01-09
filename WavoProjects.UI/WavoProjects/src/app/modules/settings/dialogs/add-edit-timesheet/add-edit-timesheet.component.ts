@@ -32,16 +32,15 @@ export class AddEditTimesheetComponent implements OnInit {
 
       temp.id = data.timesheet.id;
       temp.clockIn = data.timesheet.clockIn;
+      temp.clockOut = data.timesheet.clockOut;
     }
 
-    console.log(temp);
     temp.clockIn = this.toBrowserFormat(temp.clockIn);
 
-    if(temp.clockIn && temp.clockOut) {
+    if(temp.clockOut) {
       temp.clockOut = this.toBrowserFormat(temp.clockOut);
     }
     
-
     this.tsForm.setValue(temp);
   }
   
