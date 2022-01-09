@@ -3,15 +3,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public class Team
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
 
+        [JsonIgnore]
         public virtual List<Project> Projects { get; set; }
 
     }
@@ -24,6 +29,8 @@ namespace WavoProjects.Api.Models
             entity.Property(i => i.Name).HasMaxLength(500);
             entity.Property(i => i.Color).HasColumnType("char(7)");
             entity.ToTable("Team");
+
+            //entity.HasQueryFilter(i => i.DeletedOn == null);
 
 
             entity.HasData(

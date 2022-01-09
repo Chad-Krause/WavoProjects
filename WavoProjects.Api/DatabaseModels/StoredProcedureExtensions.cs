@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WavoProjects.Api.Models.QueryModels;
+using WavoProjects.Api.DatabaseModels.QueryModels;
 
-namespace WavoProjects.Api.Models
+namespace WavoProjects.Api.DatabaseModels
 {
     public static class StoredProcedureExtensions
     {
@@ -16,12 +16,32 @@ namespace WavoProjects.Api.Models
         {
             var priorities = await context.Priorities.Include(i => i.Projects.Where(i => i.PriorityId != 5))
                                                         .ThenInclude(j => j.Team)
+                                                    .Include(i => i.Projects.Where(i => i.PriorityId != 5))
+                                                        .ThenInclude(j => j.ProjectOwner)
                                                     .Select(i => new PriorityView(i))
                                                     .ToListAsync();
 
             priorities.Single(i => i.Id == 5).Projects.Clear(); // remove elements from last list
 
             return priorities;
+        }
+
+        /**
+         * Returns a list of team members with hours logged and distinct days logged
+         */
+        public static async Task<List<TeamMemberExtendedInformation>> GetTeamMembersWithTimesheetInfo(this WavoContext context)
+        {
+            var tsExtInfo = await context.Set<TeamMemberExtendedInformation>().FromSqlInterpolated($"CALL `GetTeamMembersWithTimesheetInformation`").ToListAsync();
+            return tsExtInfo;
+        }
+
+        /**
+         * Returns a list of team members for the timeclock
+         */
+        public static async Task<List<TimesheetTeamMember>> GetTimesheetTeamMembers(this WavoContext context)
+        {
+            var members = await context.Set<TimesheetTeamMember>().FromSqlInterpolated($"CALL `GetTimesheetUsers`").ToListAsync();
+            return members;
         }
     }
 }

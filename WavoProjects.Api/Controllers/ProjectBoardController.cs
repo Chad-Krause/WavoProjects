@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WavoProjects.Api.Hubs;
+using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
 using WavoProjects.Api.Models.Extensions;
 
@@ -18,9 +19,9 @@ namespace WavoProjects.Api.Controllers
     {
         private readonly ILogger<ProjectBoardController> m_logger;
         private WavoContext m_db;
-        private readonly IHubContext<ProjectHub, IWavOpsClient> m_projectHub;
+        private readonly IHubContext<WavOpsHub, IWavOpsHubClient> m_projectHub;
 
-        public ProjectBoardController(ILogger<ProjectBoardController> logger, WavoContext context, IHubContext<ProjectHub, IWavOpsClient> hub)
+        public ProjectBoardController(ILogger<ProjectBoardController> logger, WavoContext context, IHubContext<WavOpsHub, IWavOpsHubClient> hub)
         {
             m_logger = logger;
             m_db = context;
@@ -65,20 +66,34 @@ namespace WavoProjects.Api.Controllers
             return true;
         }
 
-        [HttpPost("CreateProject")]
-        public async Task CreateProject([FromBody] Project project)
+        [HttpPost("CreateOrUpdateProject")]
+        public async Task CreateOrUpdateProject([FromBody] Project project)
         {
-            m_logger.LogInformation($"CreateProject name: {project.Name}");
-            m_db.Projects.Add(new Project
+            string action = project.Id == null ? "Create" : "Update";
+            m_logger.LogInformation($"CreateOrUpdateProject name: {project.Name}, action: {action}");
+
+            if(project.Id == null)
             {
-                Name = project.Name,
-                Description = project.Description,
-                TeamId = project.TeamId,
-                PriorityId = 1,
-                SortOrder = 999999,
-                CreatedOn = DateTime.Now,
-                UpdatedOn = DateTime.Now
-            });
+                m_db.Projects.Add(new Project
+                {
+                    Name = project.Name,
+                    Description = project.Description,
+                    TeamId = project.TeamId,
+                    PriorityId = 1,
+                    SortOrder = 999999,
+                    ProjectOwnerId = project.ProjectOwnerId,
+                    CreatedOn = DateTime.Now,
+                    UpdatedOn = DateTime.Now
+                });
+            } else
+            {
+                Project edit = await m_db.Projects.SingleAsync(i => i.Id == project.Id);
+                edit.Name = project.Name;
+                edit.Description = project.Description;
+                edit.ProjectOwnerId = project.ProjectOwnerId;
+                edit.TeamId = project.TeamId;
+            }
+            
 
             await m_db.SaveChangesAsync();
             await SendProjectUpdate();
@@ -87,7 +102,7 @@ namespace WavoProjects.Api.Controllers
         private async Task SendProjectUpdate()
         {
             m_logger.LogInformation($"Sending SignalR Project Updates");
-            await m_projectHub.Clients.Groups(ProjectHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
+            await m_projectHub.Clients.Groups(WavOpsHub.kProjectPageGroup).UpdateProjectBoard(await m_db.GetProjectsByPriorityAsync());
         }
     }
 }

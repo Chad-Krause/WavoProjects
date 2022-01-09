@@ -3,6 +3,7 @@ import * as signalR from "@microsoft/signalr";
 import { environment } from 'src/environments/environment';
 import { Priority } from '../models/priority';
 import { ProjectDrag } from '../models/project-drag';
+import { TimesheetTeamMember } from '../models/timesheet-team-member';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class RealTimeService {
   public isConnected: EventEmitter<boolean> = new EventEmitter<boolean>();
   public projectBoardUpdates: EventEmitter<Priority[]> = new EventEmitter<Priority[]>();
   public projectDrags: EventEmitter<ProjectDrag> = new EventEmitter<ProjectDrag>();
+  public timesheetUpdates: EventEmitter<TimesheetTeamMember[]> = new EventEmitter<TimesheetTeamMember[]>();
 
   constructor() { 
     this.connection = new signalR.HubConnectionBuilder()
@@ -36,6 +38,10 @@ export class RealTimeService {
         if(this.state.isListeningToProjectDrags) {
           this.subscribeToProjectDrags();
         }
+
+        if(this.state.isListeningToTimesheetUpdates) {
+          this.subscribeToTimesheetUpdates();
+        }
       }
     })
 
@@ -45,6 +51,10 @@ export class RealTimeService {
 
     this.connection.on("ProjectDrag", (data: ProjectDrag) => {
       this.projectDrags.emit(data);
+    });
+
+    this.connection.on("UpdateTimesheets", (data: TimesheetTeamMember[]) => {
+      this.timesheetUpdates.emit(data);
     });
 
     this.startConnection()
@@ -103,6 +113,24 @@ export class RealTimeService {
     this.connection.send("DragProject", {x, y, projectId});
   }
   //#endregion
+
+  //#region Timesheets
+  public subscribeToTimesheetUpdates() {
+    this.state.isListeningToTimesheetUpdates = true;
+
+    if(this.isCurrentlyConnected) {
+      this.connection.send("SubscribeToTimesheetUpdates");
+    }
+  }
+
+  public unsubscribeToTimesheetUpdates() {
+    this.state.isListeningToTimesheetUpdates = false;
+
+    if(this.isCurrentlyConnected) {
+      this.connection.send("UnsubscribeFromTimesheetUpdates");
+    }
+  }
+  //#endregion
 }
 
 /**
@@ -130,9 +158,11 @@ class RealTimeSignalRState {
   constructor() {
     this.isListeningToProjectBoardUpdates = false;
     this.isListeningToProjectDrags = false;
+    this.isListeningToProjectBoardUpdates = false;
   }
 
   isListeningToProjectBoardUpdates: boolean;
   isListeningToProjectDrags: boolean;
+  isListeningToTimesheetUpdates: boolean;
 }
 

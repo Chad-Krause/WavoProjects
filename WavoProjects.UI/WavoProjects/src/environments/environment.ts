@@ -11,8 +11,12 @@
 export const environment = {
   production: true,
   dragUpdateDelayMS: 33,
-  baseUrl: "https://apiv2.waverlyrobotics.org/",
-  hubUrl: "https://apiv2.waverlyrobotics.org/ProjectHub"
+  // baseUrl: "https://apiv2.waverlyrobotics.org/",
+  // hubUrl: "https://apiv2.waverlyrobotics.org/ProjectHub"
+  // baseUrl: "https://localhost:5001/",
+  // hubUrl: "https://localhost:5001/ProjectHub"
+  baseUrl: "https://localhost:44331/",
+  hubUrl: "https://localhost:44331/WavOpsHub"
 };
 
 

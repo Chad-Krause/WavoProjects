@@ -4,6 +4,7 @@ export class Team {
     color: string;
 
     constructor(obj: any) {
+        if(obj == null) { return; }
         Object.keys(obj).forEach(key => {
             this[key] = obj[key];
         });

@@ -17,8 +17,12 @@
   display: block;
   background: white;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: scroll;
   height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 .list-container:nth-last-child(2){
@@ -34,7 +38,7 @@
   margin-bottom: 1.5rem;
   height: auto;
 }
-  
+
 project-item {
   border-bottom: solid 1px #ccc;
   border-radius: 5px;
@@ -91,4 +95,8 @@ project-item {
   position: absolute;
   top: 72px;
   right: 1rem;
+}
+
+h2 {
+  margin: 0;
 }

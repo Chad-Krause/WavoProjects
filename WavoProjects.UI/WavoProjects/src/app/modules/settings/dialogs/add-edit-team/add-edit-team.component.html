@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{existingTeam != null ? "Edit" : "Create"}} Team</h1>
+<div mat-dialog-content>
+
+    <project-item [project]="exampleProject"></project-item>
+
+    <form class="d-flex justify-content-around" [formGroup]="teamForm">
+        <mat-form-field class="w-40">
+            <mat-label>Name</mat-label>
+            <input formControlName='name' matInput placeholder="Programming" autocomplete="off">
+            <mat-error *ngIf="teamForm.get('name').hasError('required')">Please enter a team name!</mat-error>
+        </mat-form-field>
+
+        <ngx-colors ngx-colors-trigger formControlName='color' class='color-picker' (change)="updateColor()"></ngx-colors>
+        <mat-form-field class="w-40">
+            <mat-label>Color</mat-label>
+            <input matInput formControlName="color">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button [disabled]="loading" mat-raised-button color="primary" (click)='addTeam()' [disabled]='!teamForm.valid'>{{existingTeam != null ? "Edit" : "Create"}} Team</button>
+</div>

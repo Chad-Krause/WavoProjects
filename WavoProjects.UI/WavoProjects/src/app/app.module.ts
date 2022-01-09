@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectBoardModule } from './modules/project-board/project-board.module';
 import { SharedModule } from './shared.module';
 import { SettingsModule } from './modules/settings/settings.module';
+import { TimesheetsModule } from './modules/timesheets/timesheets.module';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { SettingsModule } from './modules/settings/settings.module';
     BrowserAnimationsModule,
     ProjectBoardModule,
     SettingsModule,
-    SharedModule
+    SharedModule,
+    TimesheetsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

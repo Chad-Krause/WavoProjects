@@ -10,10 +10,15 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list'
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSortModule } from '@angular/material/sort';
+import { NgxColorsModule } from 'ngx-colors';
 
 
 
@@ -33,7 +38,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         FormsModule,
         MatInputModule,
         MatSelectModule,
-        MatListModule
+        MatListModule,
+        MatTooltipModule,
+        NgxColorsModule,
+        MatSlideToggleModule
     ],
     providers: [],
     bootstrap: [],
@@ -50,7 +58,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         FormsModule,
         MatInputModule,
         MatSelectModule,
-        MatListModule
+        MatListModule,
+        MatTooltipModule,
+        NgxColorsModule,
+        MatSlideToggleModule
     ]
 
   })

@@ -1,0 +1,29 @@
+<div class='clock-in-out-container'>
+    <div class='list-container'>
+        <h2>Not Here</h2>
+        <div
+            cdkDropList 
+            class="user-list"
+            #notHereList="cdkDropList"
+            (cdkDropListDropped)="drop($event)" 
+            [cdkDropListConnectedTo]="[hereList]"
+            [cdkDropListData]="notHere">
+            <div class='user' *ngFor='let user of notHere' cdkDrag>{{user.name}}</div>
+        </div>
+    </div>
+
+    <div class='list-container'>
+        <h2>Here</h2>
+        <div
+            cdkDropList 
+            class="user-list"
+            #hereList="cdkDropList"
+            (cdkDropListDropped)="drop($event)" 
+            [cdkDropListConnectedTo]="[notHereList]"
+            [cdkDropListData]="here">
+            <div class='user' *ngFor='let user of here' cdkDrag>{{user.name}}</div>
+        </div>
+    </div>
+
+
+</div>

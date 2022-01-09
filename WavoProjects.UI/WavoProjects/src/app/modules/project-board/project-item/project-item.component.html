@@ -1,4 +1,7 @@
-<div [ngStyle]='getColor()' class='item-container'>
+<div [ngStyle]='getColor()' class='item-container' [matTooltip]="project.description">
     <p class='title'>{{project.name}}</p>
-    <p class='team'>{{project.team.name}}</p>
+    <div class="d-flex justify-content-between">
+      <p class='team'>{{project.team?.name}}</p>
+      <p class='owner'>{{project.projectOwner?.name}}</p>
+    </div>
 </div>

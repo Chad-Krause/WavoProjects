@@ -5,6 +5,7 @@ import { BoardComponent } from './board/board.component';
 import { AddProjectComponent } from './dialogs/add-project/add-project.component';
 import { ConfirmCompletionComponent } from './dialogs/confirm-completion/confirm-completion.component';
 import { SharedModule } from 'src/app/shared.module';
+import { ConfirmDeleteComponent } from './dialogs/confirm-delete/confirm-delete.component';
 
 
 @NgModule({
@@ -12,11 +13,13 @@ import { SharedModule } from 'src/app/shared.module';
     ProjectItemComponent,
     BoardComponent,
     AddProjectComponent,
-    ConfirmCompletionComponent
+    ConfirmCompletionComponent,
+    ConfirmDeleteComponent
   ],
   imports: [
     CommonModule,
     SharedModule
-  ]
+  ],
+  exports: [ProjectItemComponent]
 })
 export class ProjectBoardModule { }

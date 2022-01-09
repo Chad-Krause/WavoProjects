@@ -7,7 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using WavoProjects.Api.Hubs;
+using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
+using WavoProjects.Api.Workers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WavoProjects.Api
 {
@@ -25,7 +28,11 @@ namespace WavoProjects.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ResponseCacheAttribute { NoStore = true, Location = ResponseCacheLocation.None });
+            });
+
             services.AddDbContext<WavoContext>(options =>
             {
                 if (CurrentEnv.IsDevelopment())
@@ -48,7 +55,7 @@ namespace WavoProjects.Api
             });
             services.AddSignalR();
 
-            if(CurrentEnv.IsDevelopment())
+            if (CurrentEnv.IsDevelopment())
             {
                 services.AddCors(options =>
                 {
@@ -73,7 +80,10 @@ namespace WavoProjects.Api
                     });
                 });
             }
-            
+
+
+            services.AddHostedService<StartUpWorker>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,7 +111,7 @@ namespace WavoProjects.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ProjectHub>("/ProjectHub");
+                endpoints.MapHub<WavOpsHub>("/WavOpsHub");
             });
         }
     }

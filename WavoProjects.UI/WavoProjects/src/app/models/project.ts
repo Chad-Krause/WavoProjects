@@ -1,18 +1,31 @@
 import { Team } from "./team";
 import { Priority } from "./priority";
+import { TeamMember } from "./team-member";
 
 export class Project {
-    id: number;
-    name: string;
-    description?: string;
-    teamId: number;
-    team: Team;
-    priorityId?: number;
-    priority?: Priority;
-    sortOrder?: number;
-    startedOn?: Date;
-    createdOn: Date;
-    updatedOn: Date;
+  id: number;
+  name: string;
+  description?: string;
+  teamId?: number;
+  team?: Team;
+  priorityId?: number;
+  priority?: Priority;
+  sortOrder?: number;
+  projectOwnerId?: number;
+  projectOwner?: TeamMember;
+  startedOn?: Date;
+  createdOn: Date;
+  updatedOn: Date;
+
+  constructor(obj: any) {
+    Object.keys(obj).forEach(key => {
+        this[key] = obj[key];
+    });
+
+    if(obj['team'] != null) {
+        this.team = new Team(obj['team']);
+    }
+  }
 }
 
 export const ExampleProjects: Project[] = [

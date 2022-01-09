@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WavoProjects.Api.Models;
+using WavoProjects.Api.DatabaseModels;
 
 namespace WavoProjects.Api.Migrations
 {
