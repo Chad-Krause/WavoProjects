@@ -40,7 +40,7 @@ namespace WavoProjects.Api.Workers
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await WaitForNextRun(true, stoppingToken);
+            await WaitForNextRun(stoppingToken);
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -57,27 +57,27 @@ namespace WavoProjects.Api.Workers
 
                 m_logger.LogInformation($"Automatically signed {peopleWhoForgotToSignOut.Count} students out");
 
-                await WaitForNextRun(false, stoppingToken);
+                await WaitForNextRun(stoppingToken);
 
             }
 
         }
 
-        private async Task WaitForNextRun(bool firstRun, CancellationToken cancellationToken)
+        private async Task WaitForNextRun(CancellationToken cancellationToken)
         {
             int dayOfWeek = (int)DateTime.Now.DayOfWeek;
-
-            if(!firstRun) { dayOfWeek = (dayOfWeek + 1) % 6; } // If it's not the first run, get tomorrow's logout time
+            int offset = 0;
 
             DateTime signOutTime = (await m_db.AutoSignOutTimes.SingleAsync(i => i.DayOfWeek == dayOfWeek)).SignOutTime;
 
-            if (DateTime.Now.TimeOfDay > signOutTime.TimeOfDay && firstRun)
+            if (DateTime.Now.TimeOfDay > signOutTime.TimeOfDay)
             {
-                dayOfWeek = (dayOfWeek + 1) % 6;
+                dayOfWeek = (dayOfWeek + 1) % 7;
                 signOutTime = (await m_db.AutoSignOutTimes.SingleAsync(i => i.DayOfWeek == dayOfWeek)).SignOutTime;
+                offset = 24;
             }
 
-            TimeSpan waitTime = signOutTime.TimeOfDay - DateTime.Now.TimeOfDay;
+            TimeSpan waitTime = signOutTime.TimeOfDay - DateTime.Now.TimeOfDay + TimeSpan.FromHours(offset);
 
             m_logger.LogInformation($"Next Auto Clock Out happening on {signOutTime.DayOfWeek} at {signOutTime.ToShortTimeString()}");
             m_logger.LogInformation($"Waiting {waitTime.TotalHours:F2}h to log students out.");
