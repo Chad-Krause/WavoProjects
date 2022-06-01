@@ -12,6 +12,7 @@ namespace WavoProjects.Api.DatabaseModels
         public string Id { get; set; }
         public DateTime ConnectedOn { get; set; }
         public DateTime? DisconnectedOn { get; set; }
+        public string IpAddress { get; set; }
     }
 
     public partial class HubClientConfiguration : IEntityTypeConfiguration<HubClient>

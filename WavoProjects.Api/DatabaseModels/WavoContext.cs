@@ -10,7 +10,8 @@ namespace WavoProjects.Api.DatabaseModels
         {
 
         }
-        
+
+        public virtual DbSet<AutoSignOutTime> AutoSignOutTimes { get; set; }
         public virtual DbSet<HubClient> HubClients { get; set; }
         public virtual DbSet<Priority> Priorities { get; set; }
         public virtual DbSet<Project> Projects { get; set; }

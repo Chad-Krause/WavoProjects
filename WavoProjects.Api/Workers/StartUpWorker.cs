@@ -27,6 +27,12 @@ namespace WavoProjects.Api.Workers
             m_db = m_scope.ServiceProvider.GetRequiredService<WavoContext>();
         }
 
+        public override Task StartAsync(CancellationToken cancellationToken)
+        {
+            m_logger.LogInformation($"Starting StartUpWorker Service");
+            return base.StartAsync(cancellationToken);
+        }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             m_logger.LogInformation($"Setting all clients to disconnected...");

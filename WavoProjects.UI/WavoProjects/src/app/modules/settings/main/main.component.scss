@@ -36,3 +36,10 @@ mat-list-item:hover {
   background-color: #FFF;
   width: calc(100vw - 250px);
 }
+
+.versioning-info {
+    opacity: 15%;
+    position: absolute;
+    bottom: 0;
+    padding: 1em;
+}

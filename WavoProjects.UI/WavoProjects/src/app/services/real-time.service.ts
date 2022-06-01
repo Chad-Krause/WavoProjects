@@ -57,6 +57,10 @@ export class RealTimeService {
       this.timesheetUpdates.emit(data);
     });
 
+    this.connection.on("Refresh", () => {
+      location.reload();
+    });
+
     this.startConnection()
 
     setInterval(() => {
@@ -64,6 +68,10 @@ export class RealTimeService {
         this.startConnection();
       }
     }, 15000)
+  }
+
+  public refresh() {
+    this.connection.invoke("GlobalRefresh");
   }
 
   public startConnection() {

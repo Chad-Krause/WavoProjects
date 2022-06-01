@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WavoProjects.Api.DatabaseModels;
 using WavoProjects.Api.Models;
+using System.Reflection;
 
 namespace WavoProjects.Api.Controllers
 {
@@ -20,6 +21,13 @@ namespace WavoProjects.Api.Controllers
         {
             m_logger = logger;
             m_db = context;
+        }
+
+        [HttpGet("GetAPIVersion")]
+        public Version GetAPIVersion()
+        {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            return new Version { VersionString = version };
         }
 
         [HttpGet("GetTeams")]
@@ -37,6 +45,11 @@ namespace WavoProjects.Api.Controllers
                                         .OrderBy(i => i.Name)
                                         .Select(i => new NameId { Id = i.Id.Value, Name = i.Name })
                                         .ToListAsync();
+        }
+
+        public class Version
+        {
+            public string VersionString { get; set; }
         }
     }
 }

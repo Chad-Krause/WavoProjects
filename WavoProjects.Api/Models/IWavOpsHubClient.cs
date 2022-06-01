@@ -11,5 +11,6 @@ namespace WavoProjects.Api.Models
         public Task UpdateProjectBoard(List<PriorityView> projects);
         public Task ProjectDrag(ProjectDrag drag);
         public Task UpdateTimesheets(List<TimesheetTeamMember> teamMembers);
+        public Task Refresh();
     }
 }

@@ -20,6 +20,10 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  getAPIVersion(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + "Reference/GetAPIVersion");
+  }
+
   updateProjectPriorityAndSortOrders(projectId: number, newPriorityId: number, newSortOrders: ProjectSortOrder[]): Observable<boolean> {
     let model: UpdateProjectPriorityAndSortOrders = {
       id: projectId,

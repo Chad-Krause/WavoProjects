@@ -83,6 +83,7 @@ namespace WavoProjects.Api
 
 
             services.AddHostedService<StartUpWorker>();
+            services.AddHostedService<AutoTimesheetSignOutWorker>();
 
         }
 

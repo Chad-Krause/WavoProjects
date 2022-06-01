@@ -33,6 +33,7 @@ namespace WavoProjects.Api.Hubs
                 {
                     Id = Context.ConnectionId,
                     ConnectedOn = DateTime.Now,
+                    IpAddress = Context.GetHttpContext()?.Connection.RemoteIpAddress.ToString()
                 });
                 await m_db.SaveChangesAsync();
 
@@ -59,6 +60,12 @@ namespace WavoProjects.Api.Hubs
             }
 
             return base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task GlobalRefresh()
+        {
+            m_logger.LogInformation("Global Refresh Event");
+            await Clients.Others.Refresh();
         }
         #endregion
 

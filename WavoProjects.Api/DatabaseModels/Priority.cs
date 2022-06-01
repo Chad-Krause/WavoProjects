@@ -26,7 +26,7 @@ namespace WavoProjects.Api.DatabaseModels
             entity.ToTable("Priority");
 
             entity.HasData(
-                new Priority { Id = 1, Name = "Unassigned" },
+                new Priority { Id = 1, Name = "Parking Lot" },
                 new Priority { Id = 2, Name = "High" },
                 new Priority { Id = 3, Name = "Medium" },
                 new Priority { Id = 4, Name = "Low" },
