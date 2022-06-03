@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
@@ -41,7 +42,8 @@ import { NgxColorsModule } from 'ngx-colors';
         MatListModule,
         MatTooltipModule,
         NgxColorsModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatSnackBarModule
     ],
     providers: [],
     bootstrap: [],
@@ -61,7 +63,8 @@ import { NgxColorsModule } from 'ngx-colors';
         MatListModule,
         MatTooltipModule,
         NgxColorsModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatSnackBarModule
     ]
 
   })

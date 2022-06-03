@@ -1,6 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as signalR from "@microsoft/signalr";
 import { environment } from 'src/environments/environment';
+import { GLOBALS } from 'src/environments/globals';
 import { Priority } from '../models/priority';
 import { ProjectDrag } from '../models/project-drag';
 import { TimesheetTeamMember } from '../models/timesheet-team-member';
@@ -17,7 +19,9 @@ export class RealTimeService {
   public projectDrags: EventEmitter<ProjectDrag> = new EventEmitter<ProjectDrag>();
   public timesheetUpdates: EventEmitter<TimesheetTeamMember[]> = new EventEmitter<TimesheetTeamMember[]>();
 
-  constructor() { 
+  private disconnectedSince: Date = new Date();
+
+  constructor(private _snackBar: MatSnackBar) { 
     this.connection = new signalR.HubConnectionBuilder()
                                   .withUrl(environment.hubUrl)
                                   .withAutomaticReconnect()
@@ -42,6 +46,8 @@ export class RealTimeService {
         if(this.state.isListeningToTimesheetUpdates) {
           this.subscribeToTimesheetUpdates();
         }
+      } else {
+        this.disconnectedSince = new Date();
       }
     })
 
@@ -63,8 +69,21 @@ export class RealTimeService {
 
     this.startConnection()
 
+    /**
+     * Check to see if we a connected. If not, reconnect. If disconnected for too long, do a refresh
+     */
     setInterval(() => {
       if(!this.isCurrentlyConnected){
+
+        let currentTime = new Date();
+        if(currentTime.getTime() - this.disconnectedSince.getTime() > GLOBALS.refreshIfDisconnectedForMS) {
+          console.error("Disconnected from the server for too long. Refreshing...");
+          _snackBar.open("Disconnected from the server for too long. Refreshing...");
+          setTimeout(() => {
+            location.reload();
+          }, 5000)
+        }
+
         this.startConnection();
       }
     }, 15000)
