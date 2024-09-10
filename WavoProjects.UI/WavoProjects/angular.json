@@ -129,7 +129,6 @@
       }
     }
   },
-  "defaultProject": "WavoProjects",
   "cli": {
     "analytics": false
   }
