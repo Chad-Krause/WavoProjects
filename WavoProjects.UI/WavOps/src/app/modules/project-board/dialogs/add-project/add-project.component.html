@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{exitingProject != null ? "Edit" : "Create"}} Project</h1>
+<div mat-dialog-content>
+    <form class="example-form" [formGroup]="projectForm">
+        <mat-form-field class="w-100">
+            <mat-label>Name</mat-label>
+            <input formControlName='name' matInput placeholder="T-Shirt Cannon Robot" autocomplete="off">
+            <mat-error *ngIf="projectForm.get('name').hasError('required')">Please enter a name!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea formControlName='description' matInput></textarea>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-between">
+          <mat-form-field appearance="fill">
+              <mat-label>Sub Team</mat-label>
+              <mat-select formControlName='teamId'>
+                  <mat-option *ngFor="let team of teams" [value]="team.id" [ngStyle]='{"background-color": team.backgroundColor}'>
+                      {{team.name}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="projectForm.get('teamId').hasError('required')">Please choose a team!</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Project Champion</mat-label>
+            <mat-select formControlName='projectOwnerId'>
+                <mat-option *ngFor="let tm of teamMembers" [value]="tm.id">
+                    {{tm.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button [disabled]="loading" mat-raised-button color="primary" (click)='addProject()' [disabled]='!projectForm.valid'>{{exitingProject != null ? "Edit" : "Create"}} Project</button>
+</div>

@@ -1,0 +1,39 @@
+<h2>Projects</h2>
+
+<table mat-table matSort [dataSource]="ds" class="mat-elevation-z8 project-grid">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="team.name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Team</th>
+      <td mat-cell class="team-cell" *matCellDef="let element" [ngStyle]='{"background-color": element.team.backgroundColor}'>{{element.team.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="projectOwner.name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Champion</th>
+      <td mat-cell class="owner-cell" *matCellDef="let element"> {{element.projectOwner?.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>
+        <button mat-raised-button color="primary" (click)="newProject()"><mat-icon>add</mat-icon> New</button>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div class='d-flex justify-content-around'>
+          <button mat-mini-fab color="primary" (click)='editProject(element)'><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab color="warn" (click)='deleteProject(element)'><mat-icon>delete</mat-icon></button>
+        </div>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

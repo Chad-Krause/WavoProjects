@@ -1,0 +1,22 @@
+<div class='p-2 all-lists' cdkDropListGroup>
+    <div class='list-container' *ngFor='let priority of priorities'>
+        <h2>{{priority.name}}</h2>
+        <div
+            cdkDropList class="project-list" 
+            (cdkDropListDropped)="drop($event)" 
+            [cdkDropListData]="priority.projects">
+            <project-item cdkDrag *ngFor="let project of priority.projects" 
+                [project]='project' 
+                (cdkDragMoved)="onDragMoved($event)" 
+                (cdkDragReleased)="onDragEnd($event)"
+                [cdkDragData]="project">
+            </project-item>
+        </div>
+    </div>
+</div>
+
+<button class='new-project-button' mat-raised-button color="primary" (click)='newProject()'>
+    <mat-icon>add</mat-icon> New Project
+</button>
+<!-- Remote Projects -->
+<project-item *ngFor='let item of remoteProjectDrags | keyvalue' [project]='item.value.project' class='remote' [ngStyle]="item.value.style"></project-item>
