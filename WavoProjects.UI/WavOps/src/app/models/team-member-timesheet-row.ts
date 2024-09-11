@@ -1,13 +1,13 @@
 export class TeamMemberTimesheetRow {
-    id: number;
-    name: string;
-    trackTime: boolean;
-    hoursAdjustment: number;
-    createdOn: Date;
-    updatedOn: Date;
-    deletedOn: Date;
-    hours: number;
-    distinctDays: number;
+    id: number = 0;
+    name: string = "";
+    trackTime: boolean = true;
+    hoursAdjustment: number = 0;
+    createdOn: Date = new Date();
+    updatedOn: Date = new Date();
+    deletedOn?: Date;
+    hours: number = 0;
+    distinctDays: number = 0;
 
     constructor(obj: any) {
         if(obj == null) { return; }

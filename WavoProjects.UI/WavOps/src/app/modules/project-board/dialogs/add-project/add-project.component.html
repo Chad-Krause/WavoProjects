@@ -4,7 +4,7 @@
         <mat-form-field class="w-100">
             <mat-label>Name</mat-label>
             <input formControlName='name' matInput placeholder="T-Shirt Cannon Robot" autocomplete="off">
-            <mat-error *ngIf="projectForm.get('name').hasError('required')">Please enter a name!</mat-error>
+            <mat-error *ngIf="projectForm.get('name')!.hasError('required')">Please enter a name!</mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-100">
@@ -20,7 +20,7 @@
                       {{team.name}}
                   </mat-option>
               </mat-select>
-              <mat-error *ngIf="projectForm.get('teamId').hasError('required')">Please choose a team!</mat-error>
+              <mat-error *ngIf="projectForm.get('teamId')!.hasError('required')">Please choose a team!</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { RealTimeService } from 'src/app/services/real-time.service';
-import { GLOBALS } from '../../../environments/globals';
+import { GLOBALS } from '../../../../environments/globals';
+import { RealTimeService } from '../../../services/real-time.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-main',

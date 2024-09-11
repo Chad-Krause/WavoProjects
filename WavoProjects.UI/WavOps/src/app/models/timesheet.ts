@@ -1,11 +1,11 @@
 export class Timesheet {
-    id: number;
-    teamMemberId: number;
-    clockIn: Date;
+    id: number = 0;
+    teamMemberId: number = 0;
+    clockIn: Date = new Date();
     clockOut?: Date;
-    autoClockOut: boolean;
-    createdOn: Date;
-    updatedOn: Date;
+    autoClockOut: boolean = false;
+    createdOn: Date = new Date();
+    updatedOn: Date = new Date();
 
     get hours() {
         if(!this.clockOut) {

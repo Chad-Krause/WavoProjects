@@ -1,7 +1,7 @@
 export class Team {
-    id: number;
-    name: string;
-    color: string;
+    id: number = 0;
+    name: string = "";
+    color: string = "";
 
     constructor(obj: any) {
         if(obj == null) { return; }

@@ -1,14 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Project } from 'src/app/models/project';
-import { Team } from 'src/app/models/team';
-
+import { Project } from '../../../models/project';
+import { Team } from '../../../models/team';
 @Component({
   selector: 'project-item',
   templateUrl: './project-item.component.html',
   styleUrls: ['./project-item.component.scss']
 })
 export class ProjectItemComponent implements OnInit {
-  @Input() project: Project;
+  @Input() project!: Project;
 
   constructor() { }
 
@@ -20,7 +19,7 @@ export class ProjectItemComponent implements OnInit {
     if(this.project.teamId == null) {
       return {};
     }
-    return {'border-color': this.project.team.color, 'background-color': this.project.team.backgroundColor};
+    return {'border-color': this.project.team!.color, 'background-color': this.project.team!.backgroundColor};
   }
 
 }

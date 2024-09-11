@@ -2,8 +2,8 @@ import { formatDate, getLocaleDateFormat } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Timesheet } from 'src/app/models/timesheet';
-import { ApiService } from 'src/app/services/api.service';
+import { Timesheet } from '../../../../models/timesheet';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-add-edit-timesheet',
@@ -25,7 +25,7 @@ export class AddEditTimesheetComponent implements OnInit {
 
   constructor(private api: ApiService, private dialogRef: MatDialogRef<AddEditTimesheetComponent>, @Inject(MAT_DIALOG_DATA) public data?: any) {
     
-    let temp = { id: null, teamMemberId: data.teamMember.id, clockIn: null, clockOut: null }
+    let temp = { id: null, teamMemberId: data.teamMember.id as number, clockIn: new Date(), clockOut:new Date() }
 
     if(data.timesheet != null) {
       this.existingTimesheet = data.timesheet;
@@ -35,10 +35,10 @@ export class AddEditTimesheetComponent implements OnInit {
       temp.clockOut = data.timesheet.clockOut;
     }
 
-    temp.clockIn = this.toBrowserFormat(temp.clockIn);
+    temp.clockIn = new Date(this.toBrowserFormat(temp.clockIn));
 
     if(temp.clockOut) {
-      temp.clockOut = this.toBrowserFormat(temp.clockOut);
+      temp.clockOut = new Date(this.toBrowserFormat(temp.clockOut));
     }
     
     this.tsForm.setValue(temp);
@@ -52,9 +52,9 @@ export class AddEditTimesheetComponent implements OnInit {
   }
 
   calculateTime() {
-    if(this.tsForm.value.clockOut == null) return 0;
+    if(this.tsForm.value.clockOut == null) return;
     
-    let ci = new Date(this.tsForm.value.clockIn);
+    let ci = new Date(this.tsForm.value.clockIn!);
     let co = new Date(this.tsForm.value.clockOut);
     this.calculatedHours =  Math.abs(ci.getTime() - co.getTime()) / 36e5;
   }

@@ -6,7 +6,7 @@
         <mat-form-field class="w-100">
             <mat-label>Name</mat-label>
             <input formControlName='name' matInput [placeholder]="selectedExampleName" autocomplete="off">
-            <mat-error *ngIf="tmForm.get('name').hasError('required')">Please enter a name!</mat-error>
+            <mat-error *ngIf="tmForm.get('name')!.hasError('required')">Please enter a name!</mat-error>
             <mat-hint>Emojis Welcome</mat-hint>
         </mat-form-field>
 

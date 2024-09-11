@@ -2,13 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TeamMember } from 'src/app/models/team-member';
-import { TeamMemberTimesheetRow } from 'src/app/models/team-member-timesheet-row';
-import { ApiService } from 'src/app/services/api.service';
 import { ConfirmDeleteComponent } from '../../project-board/dialogs/confirm-delete/confirm-delete.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { AddEditTeamMemberComponent } from '../dialogs/add-edit-team-member/add-edit-team-member.component';
 import { ChangePinComponent } from '../dialogs/change-pin/change-pin.component';
+import { TeamMemberTimesheetRow } from '../../../models/team-member-timesheet-row';
+import { ApiService } from '../../../services/api.service';
 
 
 @Component({
@@ -25,11 +24,11 @@ import { ChangePinComponent } from '../dialogs/change-pin/change-pin.component';
 })
 export class EditTeamMembersComponent implements OnInit {
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
   teamMembers: TeamMemberTimesheetRow[] = [];
   displayedColumns: string[] = ['name', 'trackTime', 'hours', 'distinctDays', 'action'];
   ds: MatTableDataSource<TeamMemberTimesheetRow> = new MatTableDataSource<TeamMemberTimesheetRow>();
-  expandedElement: TeamMemberTimesheetRow | null;
+  expandedElement!: TeamMemberTimesheetRow | null;
 
   constructor(private api: ApiService, public dialog: MatDialog) { }
 

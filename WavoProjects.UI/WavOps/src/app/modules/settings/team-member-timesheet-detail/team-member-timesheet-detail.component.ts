@@ -3,11 +3,11 @@ import { AfterContentInit, AfterViewInit, Component, Input, OnInit, ViewChild } 
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TeamMemberTimesheetRow } from 'src/app/models/team-member-timesheet-row';
-import { Timesheet } from 'src/app/models/timesheet';
-import { ApiService } from 'src/app/services/api.service';
 import { ConfirmDeleteComponent } from '../../project-board/dialogs/confirm-delete/confirm-delete.component';
 import { AddEditTimesheetComponent } from '../dialogs/add-edit-timesheet/add-edit-timesheet.component';
+import { TeamMemberTimesheetRow } from '../../../models/team-member-timesheet-row';
+import { Timesheet } from '../../../models/timesheet';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'team-member-timesheet-detail',
@@ -15,9 +15,9 @@ import { AddEditTimesheetComponent } from '../dialogs/add-edit-timesheet/add-edi
   styleUrls: ['./team-member-timesheet-detail.component.scss']
 })
 export class TeamMemberTimesheetDetailComponent implements OnInit, AfterViewInit {
-  @Input() teamMember: TeamMemberTimesheetRow;
+  @Input() teamMember!: TeamMemberTimesheetRow;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
   timesheets: Timesheet[] = [];
   displayedColumns: string[] = ['date', 'duration', 'clockIn', 'clockOut', 'autoClockOut', 'action'];
   ds: MatTableDataSource<Timesheet> = new MatTableDataSource<Timesheet>();

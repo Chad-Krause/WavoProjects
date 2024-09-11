@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'src/app/shared.module';
 import { MainComponent } from './main/main.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { MatTableModule } from '@angular/material/table';
@@ -16,6 +15,7 @@ import { TeamMemberTimesheetDetailComponent } from './team-member-timesheet-deta
 import { AddEditTeamMemberComponent } from './dialogs/add-edit-team-member/add-edit-team-member.component';
 import { ChangePinComponent } from './dialogs/change-pin/change-pin.component';
 import { AddEditTimesheetComponent } from './dialogs/add-edit-timesheet/add-edit-timesheet.component';
+import { SharedModule } from '../../shared.module';
 
 
 

@@ -5,8 +5,8 @@
         <mat-form-field class="w-100">
             <mat-label>Timesheet PIN</mat-label>
             <input formControlName='pin' matInput type="password" maxlength="4">
-            <mat-error *ngIf="pinForm.get('pin').hasError('minLength')">Pin must be 4 characters</mat-error>
-            <mat-error *ngIf="pinForm.get('pin').hasError('required')">Pin required to change pin</mat-error>
+            <mat-error *ngIf="pinForm.get('pin')!.hasError('minLength')">Pin must be 4 characters</mat-error>
+            <mat-error *ngIf="pinForm.get('pin')!.hasError('required')">Pin required to change pin</mat-error>
         </mat-form-field>
     </form>
 </div>

@@ -7,7 +7,7 @@
         <mat-form-field class="w-40">
             <mat-label>Name</mat-label>
             <input formControlName='name' matInput placeholder="Programming" autocomplete="off">
-            <mat-error *ngIf="teamForm.get('name').hasError('required')">Please enter a team name!</mat-error>
+            <mat-error *ngIf="teamForm.get('name')!.hasError('required')">Please enter a team name!</mat-error>
         </mat-form-field>
 
         <ngx-colors ngx-colors-trigger formControlName='color' class='color-picker' (change)="updateColor()"></ngx-colors>

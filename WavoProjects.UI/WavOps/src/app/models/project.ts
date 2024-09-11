@@ -3,8 +3,8 @@ import { Priority } from "./priority";
 import { TeamMember } from "./team-member";
 
 export class Project {
-  id: number;
-  name: string;
+  id: number = 0;
+  name: string = "";
   description?: string;
   teamId?: number;
   team?: Team;
@@ -14,8 +14,8 @@ export class Project {
   projectOwnerId?: number;
   projectOwner?: TeamMember;
   startedOn?: Date;
-  createdOn: Date;
-  updatedOn: Date;
+  createdOn: Date = new Date();
+  updatedOn: Date = new Date();
 
   constructor(obj: any) {
     Object.keys(obj).forEach(key => {

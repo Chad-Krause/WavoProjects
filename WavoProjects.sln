@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WavoProjects.Database", "WavoProjects.Database\WavoProjects.Database.sqlproj", "{3A900177-3A67-4E8A-9413-0F14800FDBBA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WavoProjects.Api", "WavoProjects.Api\WavoProjects.Api.csproj", "{6668B3F6-3544-4E7D-AFEC-C022F85626C0}"
 EndProject
 Global
@@ -13,12 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A900177-3A67-4E8A-9413-0F14800FDBBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A900177-3A67-4E8A-9413-0F14800FDBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A900177-3A67-4E8A-9413-0F14800FDBBA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{3A900177-3A67-4E8A-9413-0F14800FDBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A900177-3A67-4E8A-9413-0F14800FDBBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A900177-3A67-4E8A-9413-0F14800FDBBA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{6668B3F6-3544-4E7D-AFEC-C022F85626C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6668B3F6-3544-4E7D-AFEC-C022F85626C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6668B3F6-3544-4E7D-AFEC-C022F85626C0}.Release|Any CPU.ActiveCfg = Release|Any CPU

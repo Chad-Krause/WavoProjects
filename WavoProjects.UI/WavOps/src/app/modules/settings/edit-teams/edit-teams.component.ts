@@ -1,11 +1,12 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Team } from 'src/app/models/team';
-import { ApiService } from 'src/app/services/api.service';
 import { ConfirmDeleteComponent } from '../../project-board/dialogs/confirm-delete/confirm-delete.component';
 import { AddEditTeamComponent } from '../dialogs/add-edit-team/add-edit-team.component';
+import { Team } from '../../../models/team';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-edit-teams',
@@ -13,7 +14,7 @@ import { AddEditTeamComponent } from '../dialogs/add-edit-team/add-edit-team.com
   styleUrls: ['./edit-teams.component.scss']
 })
 export class EditTeamsComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
   teams: Team[] = [];
   displayedColumns: string[] = ['name', 'color', 'action'];
   ds: MatTableDataSource<Team> = new MatTableDataSource<Team>();

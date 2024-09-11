@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ExampleProjects, Project } from 'src/app/models/project';
-import { Team } from 'src/app/models/team';
-import { ApiService } from 'src/app/services/api.service';
+import { Team } from '../../../../models/team';
+import { Project } from '../../../../models/project';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-add-edit-team',
@@ -17,9 +17,9 @@ export class AddEditTeamComponent implements OnInit {
   exampleProject: Project = new Project({name: "T-Shirt Cannon Robot", teamId: 3, team: {id: 3, name: "Team Name", color: "#c32af3"}});
 
   teamForm = new FormGroup({
-    id: new FormControl(null),
-    name: new FormControl("", Validators.required),
-    color: new FormControl("#c32af3", Validators.required)
+    id: new FormControl<number>(0),
+    name: new FormControl<string>("", Validators.required),
+    color: new FormControl<string>("#c32af3", Validators.required)
   });
 
   constructor(private api: ApiService, private dialogRef: MatDialogRef<AddEditTeamComponent>, @Inject(MAT_DIALOG_DATA) public data?: Team) {
@@ -45,7 +45,7 @@ export class AddEditTeamComponent implements OnInit {
   }
 
   updateColor() {
-    this.teamForm.setValue(this.teamForm.value)
+    this.teamForm.setValue(this.teamForm.getRawValue())
   }
 
   onNoClick(): void {

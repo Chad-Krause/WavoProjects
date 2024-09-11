@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TeamMember } from 'src/app/models/team-member';
-import { TeamMemberTimesheetRow } from 'src/app/models/team-member-timesheet-row';
-import { ApiService } from 'src/app/services/api.service';
+import { TeamMember } from '../../../../models/team-member';
+import { ApiService } from '../../../../services/api.service';
+import { TeamMemberTimesheetRow } from '../../../../models/team-member-timesheet-row';
 
 @Component({
   selector: 'app-add-edit-team-member',
@@ -30,7 +30,7 @@ export class AddEditTeamMemberComponent implements OnInit {
   selectedExampleName: string = "";
 
   tmForm = new FormGroup({
-    id: new FormControl(null),
+    id: new FormControl<number>(0),
     name: new FormControl("", Validators.required),
     trackTime: new FormControl(true),
     pin: new FormControl(""),

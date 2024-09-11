@@ -1,11 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
-import { NameId } from 'src/app/models/name-id';
-import { Team } from 'src/app/models/team';
-import { TeamMember } from 'src/app/models/team-member';
-import { Project } from 'src/app/models/project';
+import { Project } from '../../../../models/project';
+import { Team } from '../../../../models/team';
+import { NameId } from '../../../../models/name-id';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'app-add-project',
@@ -13,15 +12,15 @@ import { Project } from 'src/app/models/project';
   styleUrls: ['./add-project.component.scss']
 })
 export class AddProjectComponent implements OnInit {
-  exitingProject?: Project
+  exitingProject?: Project;
   loading: boolean = false;
 
   projectForm = new FormGroup({
-    id: new FormControl(null),
+    id: new FormControl<number>(0),
     name: new FormControl("", Validators.required),
     description: new FormControl(""),
-    teamId: new FormControl(null, Validators.required),
-    projectOwnerId: new FormControl(null)
+    teamId: new FormControl<number | null>(0, Validators.required),
+    projectOwnerId: new FormControl<number | null>(null)
   });
 
   teams: Team[] = [];
@@ -34,7 +33,7 @@ export class AddProjectComponent implements OnInit {
 
       if(data != null) {
         this.exitingProject = data;
-        let temp = {id: data.id, name: data.name, description: data.description, teamId: data.teamId, projectOwnerId: data.projectOwnerId}
+        let temp = {id: data.id, name: data.name, description: data.description!, teamId: data.teamId!, projectOwnerId: data.projectOwnerId!}
         this.projectForm.setValue(temp);
       }
   }

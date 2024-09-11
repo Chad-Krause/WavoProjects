@@ -4,8 +4,8 @@ import { ProjectItemComponent } from './project-item/project-item.component';
 import { BoardComponent } from './board/board.component';
 import { AddProjectComponent } from './dialogs/add-project/add-project.component';
 import { ConfirmCompletionComponent } from './dialogs/confirm-completion/confirm-completion.component';
-import { SharedModule } from 'src/app/shared.module';
 import { ConfirmDeleteComponent } from './dialogs/confirm-delete/confirm-delete.component';
+import { SharedModule } from '../../shared.module';
 
 
 @NgModule({

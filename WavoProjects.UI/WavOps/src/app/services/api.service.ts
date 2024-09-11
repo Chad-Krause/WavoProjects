@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { env } from 'node:process';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { NameId } from '../models/name-id';
 import { Project } from '../models/project';
 import { ProjectSortOrder } from '../models/project-sort-order';
@@ -11,6 +9,7 @@ import { TeamMember } from '../models/team-member';
 import { TeamMemberTimesheetRow } from '../models/team-member-timesheet-row';
 import { Timesheet } from '../models/timesheet';
 import { UpdateProjectPriorityAndSortOrders } from '../models/update-project-priority-and-sort-orders';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

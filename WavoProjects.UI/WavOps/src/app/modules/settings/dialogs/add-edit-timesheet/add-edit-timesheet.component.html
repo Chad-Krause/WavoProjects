@@ -12,7 +12,7 @@
         <mat-form-field>
             <mat-label>Clock Out Date/Time</mat-label>
             <input formControlName='clockOut' type='datetime-local' matInput>
-            <mat-error *ngIf="tsForm.get('clockOut').hasError('required')">Please enter a clock out time!</mat-error>
+            <mat-error *ngIf="tsForm.get('clockOut')!.hasError('required')">Please enter a clock out time!</mat-error>
         </mat-form-field>
     </form>
 

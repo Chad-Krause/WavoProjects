@@ -1,17 +1,17 @@
 import { CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragStart, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Observable, pipe, Subject, Subscription } from 'rxjs';
-import { Priority } from 'src/app/models/priority';
-import { ProjectSortOrder } from 'src/app/models/project-sort-order';
-import { ApiService } from 'src/app/services/api.service';
-import { RealTimeService } from 'src/app/services/real-time.service';
 import { throttleTime } from 'rxjs/operators';
-import { ExampleProjects, Project } from 'src/app/models/project';
-import { ProjectDrag } from 'src/app/models/project-drag';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmCompletionComponent } from '../dialogs/confirm-completion/confirm-completion.component';
 import { AddProjectComponent } from '../dialogs/add-project/add-project.component';
-import { environment } from 'src/environments/environment';
+import { Priority } from '../../../models/priority';
+import { ExampleProjects, Project } from '../../../models/project';
+import { ProjectSortOrder } from '../../../models/project-sort-order';
+import { ProjectDrag } from '../../../models/project-drag';
+import { RealTimeService } from '../../../services/real-time.service';
+import { environment } from '../../../../environments/environment';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-board',
@@ -24,10 +24,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   onlyProjects: Project[] = [];
   dragSubject: Subject<CdkDragMove> = new Subject<CdkDragMove>();
   dragThrottled: Observable<CdkDragMove> = this.dragSubject.pipe(throttleTime(environment.dragUpdateDelayMS));
-  remoteProjectDrags = {};
+  remoteProjectDrags: ProjectDrag[] = [];
   exampleProject: Project = ExampleProjects[0];
-  screenWidth: number;
-  screenHeight: number;
+  screenWidth!: number;
+  screenHeight!: number;
 
   @HostListener('window:resize', ['$event'])
 onResize(event?) {
@@ -39,7 +39,10 @@ onResize(event?) {
     let sub1 = rts.projectBoardUpdates.subscribe((newData: Priority[]) => {
       this.priorities = newData;
       // 1D array of projects
-      this.onlyProjects = [].concat(...this.priorities.map(i => i.projects));
+
+      let temp: Project[] = [];
+      temp.concat(...this.priorities.map(i => i.projects!));
+      this.onlyProjects = temp;
     });
     this.subscriptions.push(sub1);
 
@@ -69,7 +72,8 @@ onResize(event?) {
   }
 
 
-  drop(event: CdkDragDrop<Project[]>) {
+  drop(event_und: CdkDragDrop<Project[] | undefined>) {
+    let event: CdkDragDrop<Project[]> = event_und as CdkDragDrop<Project[]>;
     let containerId: number = (+event.container.id.substr(14)) % this.priorities.length;
     let priorityId = this.priorities[containerId].id;
     let project = event.item.data;
@@ -118,7 +122,7 @@ onResize(event?) {
   }
 
   otherUserDragged(drag: ProjectDrag) {
-    drag.project = this.onlyProjects.find(i => i.id == drag.projectId);
+    drag.project = this.onlyProjects.find(i => i.id == drag.projectId)!;
     drag.style = {"top": drag.y+ "%", "left": drag.x + "%", "display": drag.x > -100 || drag.y + 50 > this.screenHeight ? "block" : "none"}
     this.remoteProjectDrags[drag.clientId] = drag;
   }

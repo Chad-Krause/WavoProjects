@@ -2,10 +2,10 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Project } from 'src/app/models/project';
-import { ApiService } from 'src/app/services/api.service';
 import { AddProjectComponent } from '../../project-board/dialogs/add-project/add-project.component';
 import { ConfirmDeleteComponent } from '../../project-board/dialogs/confirm-delete/confirm-delete.component';
+import { Project } from '../../../models/project';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-edit-projects',
@@ -13,7 +13,7 @@ import { ConfirmDeleteComponent } from '../../project-board/dialogs/confirm-dele
   styleUrls: ['./edit-projects.component.scss']
 })
 export class EditProjectsComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort!: MatSort;
 
   projects: Project[] = [];
   displayedColumns: string[] = ['name', 'description', 'team.name', 'projectOwner.name', 'action'];

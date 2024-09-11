@@ -1,7 +1,7 @@
 export class TimesheetTeamMember {
-    id: number;
-    name: string;
-    clockedIn: boolean;
+    id: number = 0;
+    name: string = "";
+    clockedIn: boolean = false;
 
     constructor(obj: any) {
         if(obj) {
