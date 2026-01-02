@@ -3,6 +3,8 @@ const getEnvValue = (key: string): string | undefined => {
     return undefined;
   }
 
+  console.log(`Environment variable ${key}: ${process.env[key]}`);
+
   return process.env[key];
 };
 
