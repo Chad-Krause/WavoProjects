@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     image: wavoprojects-app:latest
-    depends_on:
-      - mariadb
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://0.0.0.0:5000
