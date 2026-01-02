@@ -1,4 +1,5 @@
 const getEnvValue = (key: string): string | undefined => {
+  console.log(`Environment Variable ${key}: ${process.env[key]}`);
   if (typeof process === 'undefined' || typeof process.env === 'undefined') {
     return undefined;
   }
