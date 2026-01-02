@@ -103,6 +103,9 @@ namespace WavoProjects.Api
 
             app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseCors("dev");
 
             app.UseRouting();
@@ -113,6 +116,7 @@ namespace WavoProjects.Api
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<WavOpsHub>("/WavOpsHub");
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

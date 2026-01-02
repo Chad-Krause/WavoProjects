@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DATABASE_NAME:-WavoProjects}
+      MARIADB_USER: ${DATABASE_USER:-wavo}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD:-changeme}
+      MARIADB_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD:-rootchangeme}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wavoprojects-app:latest
+    depends_on:
+      - db
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://0.0.0.0:5000
+      ConnectionStrings__WavoProjectsContextProd: "Server=${DATABASE_HOST:-db};Port=${DATABASE_PORT:-3306};Database=${DATABASE_NAME:-WavoProjects};User=${DATABASE_USER:-wavo};Password=${DATABASE_PASSWORD:-changeme};"
+    ports:
+      - "5000:5000"
+
+volumes:
+  db_data:
