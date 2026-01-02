@@ -13,8 +13,11 @@ services:
     ports:
       - "5000:5000"
     networks:
-      db_private:
-        external: true
+      - db_private
 
+networks:
+  db_private:
+    external: true
+    name: db_private
 volumes:
   db_data:
