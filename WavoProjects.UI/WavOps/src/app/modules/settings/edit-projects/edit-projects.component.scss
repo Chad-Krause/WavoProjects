@@ -1,0 +1,19 @@
+.project-grid {
+  width: 100%;
+}
+
+.team-cell {
+  text-align: center;
+}
+
+.owner-cell {
+  text-align: center;
+}
+
+.mat-row .mat-cell {
+  background-color: #FFF;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #00000010;
+}

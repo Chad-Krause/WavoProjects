@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>{{existingTimesheet != null ? "Edit" : "Add"}} Timesheet</h1>
+<div mat-dialog-content>
+
+    <p><span>Hours:</span> {{calculatedHours | number : '1.0-2'}}</p>
+
+    <form class="d-flex justify-content-around" [formGroup]="tsForm">
+        <mat-form-field>
+            <mat-label>Clock In Date/Time</mat-label>
+            <input formControlName='clockIn' type='datetime-local' matInput>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Clock Out Date/Time</mat-label>
+            <input formControlName='clockOut' type='datetime-local' matInput>
+            <mat-error *ngIf="tsForm.get('clockOut')!.hasError('required')">Please enter a clock out time!</mat-error>
+        </mat-form-field>
+    </form>
+
+    <p class='message' *ngIf='showClockOutWarning'>This timesheet record did not have a clock out time. Automatically setting clock out time to +2 hours!</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+  <button [disabled]="loading" mat-raised-button color="primary" (click)='addTimesheet()' [disabled]='!tsForm.valid'>{{existingTimesheet != null ? "Edit" : "Add"}} Timesheet</button>
+</div>
