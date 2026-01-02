@@ -13,7 +13,7 @@ COPY WavoProjects.sln ./
 COPY WavoProjects.Api/WavoProjects.Api.csproj WavoProjects.Api/
 RUN dotnet restore WavoProjects.Api/WavoProjects.Api.csproj
 COPY . .
-COPY --from=ui-build /src/WavoProjects.UI/WavOps/dist/wav-ops ./WavoProjects.Api/wwwroot
+COPY --from=ui-build /src/WavoProjects.UI/WavOps/dist/wav-ops/browser/ ./WavoProjects.Api/wwwroot/
 RUN dotnet publish WavoProjects.Api/WavoProjects.Api.csproj -c Release -o /app/publish
 
 # Final runtime image
