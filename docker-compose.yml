@@ -10,10 +10,28 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://0.0.0.0:5000
       ConnectionStrings__WavoProjectsContextProd: "Server=${DATABASE_HOST:-db};Port=${DATABASE_PORT:-3306};Database=${DATABASE_NAME:-WavoProjects};User=${DATABASE_USER:-wavo};Password=${DATABASE_PASSWORD:-changeme};"
-    ports:
-      - "5000:5000"
     networks:
       - db_private
+      - public
+    labels:
+      - traefik.enable=true
+
+      # Tell Traefik which Docker network to use
+      - traefik.docker.network=public
+
+      # Router
+      - traefik.http.routers.wavoprojects.rule=Host(`${WAVOPS_URL}`)
+      - traefik.http.routers.wavoprojects.entrypoints=websecure
+      - traefik.http.routers.wavoprojects.tls=true
+      - traefik.http.routers.wavoprojects.tls.certresolver=le
+
+      # Service (internal container port)
+      - traefik.http.services.wavoprojects.loadbalancer.server.port=5000
+
+      # Fix HTTPS awareness for ASP.NET behind proxy
+      - traefik.http.middlewares.wavoprojects-headers.headers.customrequestheaders.X-Forwarded-Proto=https
+      - traefik.http.middlewares.wavoprojects-headers.headers.customrequestheaders.X-Forwarded-Port=443
+      - traefik.http.routers.wavoprojects.middlewares=wavoprojects-headers
 
 networks:
   db_private:
