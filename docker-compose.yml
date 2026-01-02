@@ -38,5 +38,9 @@ networks:
   db_private:
     external: true
     name: db_private
+  public:
+    external: true
+    name: public
+    
 volumes:
   db_data:
