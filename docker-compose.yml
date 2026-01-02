@@ -10,6 +10,7 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://0.0.0.0:5000
       ConnectionStrings__WavoProjectsContextProd: "Server=${DATABASE_HOST:-db};Port=${DATABASE_PORT:-3306};Database=${DATABASE_NAME:-WavoProjects};User=${DATABASE_USER:-wavo};Password=${DATABASE_PASSWORD:-changeme};"
+      TZ: ${TZ:-EST}
     networks:
       - db_private
       - public
