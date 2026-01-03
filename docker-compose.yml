@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: wavoprojects-app:latest
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://0.0.0.0:5000
+      ConnectionStrings__WavoProjectsContextProd: "Server=${DATABASE_HOST:-db};Port=${DATABASE_PORT:-3306};Database=${DATABASE_NAME:-WavoProjects};User=${DATABASE_USER:-wavo};Password=${DATABASE_PASSWORD:-changeme};"
+      TZ: ${TZ:-EST}
+      NG_APP_BASE_URL: ${NG_APP_BASE_URL}
+      NG_APP_HUB_URL: ${NG_APP_HUB_URL}
+    networks:
+      - db_private
+      - public
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+
+      # Tell Traefik which Docker network to use
+      - traefik.docker.network=public
+
+      # Router
+      - traefik.http.routers.wavoprojects.rule=Host(`${WAVOPS_URL}`)
+      - traefik.http.routers.wavoprojects.entrypoints=websecure
+      - traefik.http.routers.wavoprojects.tls=true
+      - traefik.http.routers.wavoprojects.tls.certresolver=le
+
+      # Service (internal container port)
+      - traefik.http.services.wavoprojects.loadbalancer.server.port=5000
+
+      # Fix HTTPS awareness for ASP.NET behind proxy
+      - traefik.http.middlewares.wavoprojects-headers.headers.customrequestheaders.X-Forwarded-Proto=https
+      - traefik.http.middlewares.wavoprojects-headers.headers.customrequestheaders.X-Forwarded-Port=443
+      - traefik.http.routers.wavoprojects.middlewares=wavoprojects-headers
+
+networks:
+  db_private:
+    external: true
+    name: db_private
+  public:
+    external: true
+    name: public
+
+volumes:
+  db_data:
