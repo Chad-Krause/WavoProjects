@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class='d-flex justify-content-between'>
+    <span class='col-sm-4' [routerLink]="'/'">WavOps</span>
+
+    <img *ngIf='connected' class='col-sm-4' [routerLink]="'/'" src="public/7226_logo_animated2.svg" height='50px'>
+    <img *ngIf='!connected' class='col-sm-4' [routerLink]="'/'" src="public/7226_logo.svg" height='50px'>
+
+
+    <div class='col-sm-4 d-flex justify-content-end'>
+        <button mat-icon-button aria-label="Settings Menu" [matMenuTriggerFor]="menu" >
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <!-- <button mat-menu-item>Save Snapshot</button>
+            <button mat-menu-item>Load Snapshot</button> -->
+            <button mat-menu-item [routerLink]="'/board'"><mat-icon>dashboard</mat-icon> Wavops</button>
+            <button mat-menu-item [routerLink]="'/timesheets'"><mat-icon>schedule</mat-icon> Timesheets</button>
+            <button mat-menu-item [routerLink]="'/settings/projects'"><mat-icon>settings</mat-icon> Settings</button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
