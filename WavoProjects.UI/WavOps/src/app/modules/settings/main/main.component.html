@@ -1,18 +1,18 @@
 <div class='settings-container'>
     <mat-list class='list-menu'>
         <mat-list-item routerLink='/settings/projects' routerLinkActive='current-nav'>
-            <mat-icon mat-list-icon>category</mat-icon>
-            <div mat-line>Projects</div>
+            <mat-icon matListItemIcon>category</mat-icon>
+            <span matListItemTitle>Projects</span>
         </mat-list-item>
 
         <mat-list-item routerLink='/settings/teams' routerLinkActive='current-nav'>
-            <mat-icon mat-list-icon>engineering</mat-icon>
-            <div mat-line>Teams</div>
+            <mat-icon matListItemIcon>engineering</mat-icon>
+            <div matListItemTitle>Teams</div>
         </mat-list-item>
 
         <mat-list-item routerLink='/settings/team-members' routerLinkActive='current-nav'>
-            <mat-icon mat-list-icon>groups</mat-icon>
-            <div mat-line>Team Members</div>
+            <mat-icon matListItemIcon>groups</mat-icon>
+            <div matListItemTitle>Team Members</div>
         </mat-list-item>
 
         <!-- <mat-list-item routerLink='/settings/misc' routerLinkActive='current-nav'>
@@ -20,8 +20,8 @@
             <div mat-line>Settings</div>
         </mat-list-item> -->
         <mat-list-item class="refresh" (click)="refresh()">
-            <mat-icon mat-list-icon>refresh</mat-icon>
-            <div mat-line>Reload Others</div>
+            <mat-icon matListItemIcon>refresh</mat-icon>
+            <div matListItemTitle>Reload Others</div>
         </mat-list-item>
         <div class="versioning-info">
             <div><b>UI Version: </b> {{uiVersion}}</div>
