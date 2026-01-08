@@ -69,11 +69,11 @@ namespace WavoProjects.Api.Controllers
         [HttpPost("CreateOrUpdateProject")]
         public async Task CreateOrUpdateProject([FromBody] Project project)
         {
-            bool isNew = !project.Id.HasValue || project.Id == 0;
-            string action = isNew ? "Create" : "Update";
+            bool isNewProject = !project.Id.HasValue || project.Id == 0;
+            string action = isNewProject ? "Create" : "Update";
             m_logger.LogInformation($"CreateOrUpdateProject name: {project.Name}, action: {action}");
 
-            if(isNew)
+            if(isNewProject)
             {
                 m_db.Projects.Add(new Project
                 {
