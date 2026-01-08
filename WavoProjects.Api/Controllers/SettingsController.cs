@@ -61,10 +61,10 @@ namespace WavoProjects.Api.Controllers
         public async Task<bool> CreateOrUpdateTeam([FromBody] Team team)
         {
             bool isNewTeam = !team.Id.HasValue || team.Id == 0;
-            string action = isNewTeam ? "Edit" : "Create";
+            string action = isNewTeam ? "Create" : "Edit";
             m_logger.LogInformation($"CreateOrUpdateTeam - Action: {action}");
             
-            if(!team.Id.HasValue) // Create
+            if(isNewTeam) // Create
             {
                 Team newTeam = new Team
                 {
@@ -112,10 +112,10 @@ namespace WavoProjects.Api.Controllers
         public async Task<bool> CreateOrUpdateTeamMember([FromBody] TeamMember tm)
         {
             bool isNewTeamMember = !tm.Id.HasValue || tm.Id == 0;
-            string action = isNewTeamMember ? "Edit" : "Create";
+            string action = isNewTeamMember ? "Create" : "Edit";
             m_logger.LogInformation($"CreateOrUpdateTeamMember - Action: {action}");
 
-            if (!tm.Id.HasValue) // Create
+            if (isNewTeamMember) // Create
             {
                 TeamMember newTeamMember = new TeamMember
                 {
@@ -196,10 +196,10 @@ namespace WavoProjects.Api.Controllers
         public async Task<bool> CreateOrUpdateTimesheet([FromBody] Timesheet ts)
         {
             bool isNewTimesheet = !ts.Id.HasValue || ts.Id == 0;
-            string action = isNewTimesheet ? "Edit" : "Create";
+            string action = isNewTimesheet ? "Create" : "Edit";
             m_logger.LogInformation($"CreateOrUpdateTimesheet - Action: {action}");
 
-            if (!ts.Id.HasValue) // Create
+            if (isNewTimesheet) // Create
             {
                 Timesheet newTimesheet = new Timesheet
                 {
